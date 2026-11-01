@@ -1,0 +1,11 @@
+:root { font-family: system-ui, -apple-system, sans-serif; color: #102030; background: #f3f6fa; }
+* { box-sizing: border-box; } body { margin: 0; }
+main { width: min(720px, 100%); padding: 18px; margin: auto; }
+h1 { margin-bottom: 5px; font-size: 1.7rem; } h2 { font-size: 1.1rem; margin-top: 0; }
+.small {font-size: .82rem; color: #4c6177;} .card {background: white; border: 1px solid #cdd8e4; border-radius: 14px; padding: 16px; margin: 16px 0;}
+button {background:#1657a1; color:white; border:0; border-radius:9px; padding: 12px 13px; margin: 4px 4px 4px 0; font-weight:600; font-size:1rem;}
+button:disabled {opacity:.4;} textarea, input { display:block; width:100%; padding:10px; margin:8px 0; border:1px solid #afbdce; border-radius:7px; font-family:inherit;}
+textarea {min-height:74px; resize:vertical;} label {font-size:.85rem; font-weight:600;} pre {white-space:pre-wrap; overflow-wrap:anywhere; font-size:.76rem;}
+code {overflow-wrap:anywhere;} #qr-area {text-align:center;} #signal-output {font-size:.65rem; max-height:75px;}
+video {width:100%; max-height:420px; background:black; border-radius:8px;}
+#output {white-space:pre-wrap; overflow-wrap:anywhere;} #hex {display:block;}

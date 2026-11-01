@@ -1,0 +1,1079 @@
+{
+  "schemaVersion": 1,
+  "spec": {
+    "schemaVersion": 1,
+    "architectureVersion": "provisional-preln-gelu-tanh-untied-v1",
+    "seed": 42,
+    "vocabSize": 256,
+    "maxSeqLen": 512,
+    "nLayers": 6,
+    "dModel": 384,
+    "nHeads": 6,
+    "headDim": 64,
+    "dFF": 1536,
+    "layerNormEps": 1e-05,
+    "geluApproximation": "tanh",
+    "totalParameters": 11040768,
+    "dtype": "float32",
+    "bytesPerParameter": 4,
+    "phone1Layers": [
+      0,
+      1,
+      2
+    ],
+    "phone2Layers": [
+      3,
+      4,
+      5
+    ]
+  },
+  "initializer": "PyTorch default nn.Embedding + nn.Linear creation-order initialization, torch.manual_seed(42)",
+  "torchVersion": "2.10.0+cpu",
+  "fullWeights": {
+    "file": "weights.bin",
+    "byteLength": 44163072,
+    "sha256": "319098f0c0d004c0a8f1ecf3c37ed2d7e3b31d515cc6b0d26f53a345f8a6999c"
+  },
+  "shards": {
+    "phone1": {
+      "file": "phone1.bin",
+      "byteLength": 22473216,
+      "sha256": "a1ce49d2960b3c66c715d8f0fa1317dc8275c95add5c44aef5ccf6f75dc730ea"
+    },
+    "phone2": {
+      "file": "phone2.bin",
+      "byteLength": 21689856,
+      "sha256": "50a4e8ccc29188b78542957d3705669929dc2e4caf2e334a52622f074c2667f2"
+    }
+  },
+  "tensors": [
+    {
+      "name": "token_embedding.weight",
+      "shape": [
+        256,
+        384
+      ],
+      "count": 98304,
+      "role": "phone1",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 0,
+      "byteLength": 393216,
+      "fullByteOffset": 0
+    },
+    {
+      "name": "position_embedding.weight",
+      "shape": [
+        512,
+        384
+      ],
+      "count": 196608,
+      "role": "phone1",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 393216,
+      "byteLength": 786432,
+      "fullByteOffset": 393216
+    },
+    {
+      "name": "blocks.0.ln1.weight",
+      "shape": [
+        384
+      ],
+      "count": 384,
+      "role": "phone1",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 1179648,
+      "byteLength": 1536,
+      "fullByteOffset": 1179648
+    },
+    {
+      "name": "blocks.0.ln1.bias",
+      "shape": [
+        384
+      ],
+      "count": 384,
+      "role": "phone1",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 1181184,
+      "byteLength": 1536,
+      "fullByteOffset": 1181184
+    },
+    {
+      "name": "blocks.0.qkv.weight",
+      "shape": [
+        1152,
+        384
+      ],
+      "count": 442368,
+      "role": "phone1",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 1182720,
+      "byteLength": 1769472,
+      "fullByteOffset": 1182720
+    },
+    {
+      "name": "blocks.0.qkv.bias",
+      "shape": [
+        1152
+      ],
+      "count": 1152,
+      "role": "phone1",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 2952192,
+      "byteLength": 4608,
+      "fullByteOffset": 2952192
+    },
+    {
+      "name": "blocks.0.proj.weight",
+      "shape": [
+        384,
+        384
+      ],
+      "count": 147456,
+      "role": "phone1",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 2956800,
+      "byteLength": 589824,
+      "fullByteOffset": 2956800
+    },
+    {
+      "name": "blocks.0.proj.bias",
+      "shape": [
+        384
+      ],
+      "count": 384,
+      "role": "phone1",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 3546624,
+      "byteLength": 1536,
+      "fullByteOffset": 3546624
+    },
+    {
+      "name": "blocks.0.ln2.weight",
+      "shape": [
+        384
+      ],
+      "count": 384,
+      "role": "phone1",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 3548160,
+      "byteLength": 1536,
+      "fullByteOffset": 3548160
+    },
+    {
+      "name": "blocks.0.ln2.bias",
+      "shape": [
+        384
+      ],
+      "count": 384,
+      "role": "phone1",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 3549696,
+      "byteLength": 1536,
+      "fullByteOffset": 3549696
+    },
+    {
+      "name": "blocks.0.fc1.weight",
+      "shape": [
+        1536,
+        384
+      ],
+      "count": 589824,
+      "role": "phone1",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 3551232,
+      "byteLength": 2359296,
+      "fullByteOffset": 3551232
+    },
+    {
+      "name": "blocks.0.fc1.bias",
+      "shape": [
+        1536
+      ],
+      "count": 1536,
+      "role": "phone1",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 5910528,
+      "byteLength": 6144,
+      "fullByteOffset": 5910528
+    },
+    {
+      "name": "blocks.0.fc2.weight",
+      "shape": [
+        384,
+        1536
+      ],
+      "count": 589824,
+      "role": "phone1",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 5916672,
+      "byteLength": 2359296,
+      "fullByteOffset": 5916672
+    },
+    {
+      "name": "blocks.0.fc2.bias",
+      "shape": [
+        384
+      ],
+      "count": 384,
+      "role": "phone1",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 8275968,
+      "byteLength": 1536,
+      "fullByteOffset": 8275968
+    },
+    {
+      "name": "blocks.1.ln1.weight",
+      "shape": [
+        384
+      ],
+      "count": 384,
+      "role": "phone1",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 8277504,
+      "byteLength": 1536,
+      "fullByteOffset": 8277504
+    },
+    {
+      "name": "blocks.1.ln1.bias",
+      "shape": [
+        384
+      ],
+      "count": 384,
+      "role": "phone1",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 8279040,
+      "byteLength": 1536,
+      "fullByteOffset": 8279040
+    },
+    {
+      "name": "blocks.1.qkv.weight",
+      "shape": [
+        1152,
+        384
+      ],
+      "count": 442368,
+      "role": "phone1",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 8280576,
+      "byteLength": 1769472,
+      "fullByteOffset": 8280576
+    },
+    {
+      "name": "blocks.1.qkv.bias",
+      "shape": [
+        1152
+      ],
+      "count": 1152,
+      "role": "phone1",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 10050048,
+      "byteLength": 4608,
+      "fullByteOffset": 10050048
+    },
+    {
+      "name": "blocks.1.proj.weight",
+      "shape": [
+        384,
+        384
+      ],
+      "count": 147456,
+      "role": "phone1",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 10054656,
+      "byteLength": 589824,
+      "fullByteOffset": 10054656
+    },
+    {
+      "name": "blocks.1.proj.bias",
+      "shape": [
+        384
+      ],
+      "count": 384,
+      "role": "phone1",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 10644480,
+      "byteLength": 1536,
+      "fullByteOffset": 10644480
+    },
+    {
+      "name": "blocks.1.ln2.weight",
+      "shape": [
+        384
+      ],
+      "count": 384,
+      "role": "phone1",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 10646016,
+      "byteLength": 1536,
+      "fullByteOffset": 10646016
+    },
+    {
+      "name": "blocks.1.ln2.bias",
+      "shape": [
+        384
+      ],
+      "count": 384,
+      "role": "phone1",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 10647552,
+      "byteLength": 1536,
+      "fullByteOffset": 10647552
+    },
+    {
+      "name": "blocks.1.fc1.weight",
+      "shape": [
+        1536,
+        384
+      ],
+      "count": 589824,
+      "role": "phone1",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 10649088,
+      "byteLength": 2359296,
+      "fullByteOffset": 10649088
+    },
+    {
+      "name": "blocks.1.fc1.bias",
+      "shape": [
+        1536
+      ],
+      "count": 1536,
+      "role": "phone1",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 13008384,
+      "byteLength": 6144,
+      "fullByteOffset": 13008384
+    },
+    {
+      "name": "blocks.1.fc2.weight",
+      "shape": [
+        384,
+        1536
+      ],
+      "count": 589824,
+      "role": "phone1",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 13014528,
+      "byteLength": 2359296,
+      "fullByteOffset": 13014528
+    },
+    {
+      "name": "blocks.1.fc2.bias",
+      "shape": [
+        384
+      ],
+      "count": 384,
+      "role": "phone1",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 15373824,
+      "byteLength": 1536,
+      "fullByteOffset": 15373824
+    },
+    {
+      "name": "blocks.2.ln1.weight",
+      "shape": [
+        384
+      ],
+      "count": 384,
+      "role": "phone1",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 15375360,
+      "byteLength": 1536,
+      "fullByteOffset": 15375360
+    },
+    {
+      "name": "blocks.2.ln1.bias",
+      "shape": [
+        384
+      ],
+      "count": 384,
+      "role": "phone1",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 15376896,
+      "byteLength": 1536,
+      "fullByteOffset": 15376896
+    },
+    {
+      "name": "blocks.2.qkv.weight",
+      "shape": [
+        1152,
+        384
+      ],
+      "count": 442368,
+      "role": "phone1",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 15378432,
+      "byteLength": 1769472,
+      "fullByteOffset": 15378432
+    },
+    {
+      "name": "blocks.2.qkv.bias",
+      "shape": [
+        1152
+      ],
+      "count": 1152,
+      "role": "phone1",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 17147904,
+      "byteLength": 4608,
+      "fullByteOffset": 17147904
+    },
+    {
+      "name": "blocks.2.proj.weight",
+      "shape": [
+        384,
+        384
+      ],
+      "count": 147456,
+      "role": "phone1",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 17152512,
+      "byteLength": 589824,
+      "fullByteOffset": 17152512
+    },
+    {
+      "name": "blocks.2.proj.bias",
+      "shape": [
+        384
+      ],
+      "count": 384,
+      "role": "phone1",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 17742336,
+      "byteLength": 1536,
+      "fullByteOffset": 17742336
+    },
+    {
+      "name": "blocks.2.ln2.weight",
+      "shape": [
+        384
+      ],
+      "count": 384,
+      "role": "phone1",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 17743872,
+      "byteLength": 1536,
+      "fullByteOffset": 17743872
+    },
+    {
+      "name": "blocks.2.ln2.bias",
+      "shape": [
+        384
+      ],
+      "count": 384,
+      "role": "phone1",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 17745408,
+      "byteLength": 1536,
+      "fullByteOffset": 17745408
+    },
+    {
+      "name": "blocks.2.fc1.weight",
+      "shape": [
+        1536,
+        384
+      ],
+      "count": 589824,
+      "role": "phone1",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 17746944,
+      "byteLength": 2359296,
+      "fullByteOffset": 17746944
+    },
+    {
+      "name": "blocks.2.fc1.bias",
+      "shape": [
+        1536
+      ],
+      "count": 1536,
+      "role": "phone1",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 20106240,
+      "byteLength": 6144,
+      "fullByteOffset": 20106240
+    },
+    {
+      "name": "blocks.2.fc2.weight",
+      "shape": [
+        384,
+        1536
+      ],
+      "count": 589824,
+      "role": "phone1",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 20112384,
+      "byteLength": 2359296,
+      "fullByteOffset": 20112384
+    },
+    {
+      "name": "blocks.2.fc2.bias",
+      "shape": [
+        384
+      ],
+      "count": 384,
+      "role": "phone1",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 22471680,
+      "byteLength": 1536,
+      "fullByteOffset": 22471680
+    },
+    {
+      "name": "blocks.3.ln1.weight",
+      "shape": [
+        384
+      ],
+      "count": 384,
+      "role": "phone2",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 0,
+      "byteLength": 1536,
+      "fullByteOffset": 22473216
+    },
+    {
+      "name": "blocks.3.ln1.bias",
+      "shape": [
+        384
+      ],
+      "count": 384,
+      "role": "phone2",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 1536,
+      "byteLength": 1536,
+      "fullByteOffset": 22474752
+    },
+    {
+      "name": "blocks.3.qkv.weight",
+      "shape": [
+        1152,
+        384
+      ],
+      "count": 442368,
+      "role": "phone2",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 3072,
+      "byteLength": 1769472,
+      "fullByteOffset": 22476288
+    },
+    {
+      "name": "blocks.3.qkv.bias",
+      "shape": [
+        1152
+      ],
+      "count": 1152,
+      "role": "phone2",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 1772544,
+      "byteLength": 4608,
+      "fullByteOffset": 24245760
+    },
+    {
+      "name": "blocks.3.proj.weight",
+      "shape": [
+        384,
+        384
+      ],
+      "count": 147456,
+      "role": "phone2",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 1777152,
+      "byteLength": 589824,
+      "fullByteOffset": 24250368
+    },
+    {
+      "name": "blocks.3.proj.bias",
+      "shape": [
+        384
+      ],
+      "count": 384,
+      "role": "phone2",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 2366976,
+      "byteLength": 1536,
+      "fullByteOffset": 24840192
+    },
+    {
+      "name": "blocks.3.ln2.weight",
+      "shape": [
+        384
+      ],
+      "count": 384,
+      "role": "phone2",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 2368512,
+      "byteLength": 1536,
+      "fullByteOffset": 24841728
+    },
+    {
+      "name": "blocks.3.ln2.bias",
+      "shape": [
+        384
+      ],
+      "count": 384,
+      "role": "phone2",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 2370048,
+      "byteLength": 1536,
+      "fullByteOffset": 24843264
+    },
+    {
+      "name": "blocks.3.fc1.weight",
+      "shape": [
+        1536,
+        384
+      ],
+      "count": 589824,
+      "role": "phone2",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 2371584,
+      "byteLength": 2359296,
+      "fullByteOffset": 24844800
+    },
+    {
+      "name": "blocks.3.fc1.bias",
+      "shape": [
+        1536
+      ],
+      "count": 1536,
+      "role": "phone2",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 4730880,
+      "byteLength": 6144,
+      "fullByteOffset": 27204096
+    },
+    {
+      "name": "blocks.3.fc2.weight",
+      "shape": [
+        384,
+        1536
+      ],
+      "count": 589824,
+      "role": "phone2",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 4737024,
+      "byteLength": 2359296,
+      "fullByteOffset": 27210240
+    },
+    {
+      "name": "blocks.3.fc2.bias",
+      "shape": [
+        384
+      ],
+      "count": 384,
+      "role": "phone2",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 7096320,
+      "byteLength": 1536,
+      "fullByteOffset": 29569536
+    },
+    {
+      "name": "blocks.4.ln1.weight",
+      "shape": [
+        384
+      ],
+      "count": 384,
+      "role": "phone2",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 7097856,
+      "byteLength": 1536,
+      "fullByteOffset": 29571072
+    },
+    {
+      "name": "blocks.4.ln1.bias",
+      "shape": [
+        384
+      ],
+      "count": 384,
+      "role": "phone2",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 7099392,
+      "byteLength": 1536,
+      "fullByteOffset": 29572608
+    },
+    {
+      "name": "blocks.4.qkv.weight",
+      "shape": [
+        1152,
+        384
+      ],
+      "count": 442368,
+      "role": "phone2",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 7100928,
+      "byteLength": 1769472,
+      "fullByteOffset": 29574144
+    },
+    {
+      "name": "blocks.4.qkv.bias",
+      "shape": [
+        1152
+      ],
+      "count": 1152,
+      "role": "phone2",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 8870400,
+      "byteLength": 4608,
+      "fullByteOffset": 31343616
+    },
+    {
+      "name": "blocks.4.proj.weight",
+      "shape": [
+        384,
+        384
+      ],
+      "count": 147456,
+      "role": "phone2",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 8875008,
+      "byteLength": 589824,
+      "fullByteOffset": 31348224
+    },
+    {
+      "name": "blocks.4.proj.bias",
+      "shape": [
+        384
+      ],
+      "count": 384,
+      "role": "phone2",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 9464832,
+      "byteLength": 1536,
+      "fullByteOffset": 31938048
+    },
+    {
+      "name": "blocks.4.ln2.weight",
+      "shape": [
+        384
+      ],
+      "count": 384,
+      "role": "phone2",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 9466368,
+      "byteLength": 1536,
+      "fullByteOffset": 31939584
+    },
+    {
+      "name": "blocks.4.ln2.bias",
+      "shape": [
+        384
+      ],
+      "count": 384,
+      "role": "phone2",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 9467904,
+      "byteLength": 1536,
+      "fullByteOffset": 31941120
+    },
+    {
+      "name": "blocks.4.fc1.weight",
+      "shape": [
+        1536,
+        384
+      ],
+      "count": 589824,
+      "role": "phone2",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 9469440,
+      "byteLength": 2359296,
+      "fullByteOffset": 31942656
+    },
+    {
+      "name": "blocks.4.fc1.bias",
+      "shape": [
+        1536
+      ],
+      "count": 1536,
+      "role": "phone2",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 11828736,
+      "byteLength": 6144,
+      "fullByteOffset": 34301952
+    },
+    {
+      "name": "blocks.4.fc2.weight",
+      "shape": [
+        384,
+        1536
+      ],
+      "count": 589824,
+      "role": "phone2",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 11834880,
+      "byteLength": 2359296,
+      "fullByteOffset": 34308096
+    },
+    {
+      "name": "blocks.4.fc2.bias",
+      "shape": [
+        384
+      ],
+      "count": 384,
+      "role": "phone2",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 14194176,
+      "byteLength": 1536,
+      "fullByteOffset": 36667392
+    },
+    {
+      "name": "blocks.5.ln1.weight",
+      "shape": [
+        384
+      ],
+      "count": 384,
+      "role": "phone2",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 14195712,
+      "byteLength": 1536,
+      "fullByteOffset": 36668928
+    },
+    {
+      "name": "blocks.5.ln1.bias",
+      "shape": [
+        384
+      ],
+      "count": 384,
+      "role": "phone2",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 14197248,
+      "byteLength": 1536,
+      "fullByteOffset": 36670464
+    },
+    {
+      "name": "blocks.5.qkv.weight",
+      "shape": [
+        1152,
+        384
+      ],
+      "count": 442368,
+      "role": "phone2",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 14198784,
+      "byteLength": 1769472,
+      "fullByteOffset": 36672000
+    },
+    {
+      "name": "blocks.5.qkv.bias",
+      "shape": [
+        1152
+      ],
+      "count": 1152,
+      "role": "phone2",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 15968256,
+      "byteLength": 4608,
+      "fullByteOffset": 38441472
+    },
+    {
+      "name": "blocks.5.proj.weight",
+      "shape": [
+        384,
+        384
+      ],
+      "count": 147456,
+      "role": "phone2",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 15972864,
+      "byteLength": 589824,
+      "fullByteOffset": 38446080
+    },
+    {
+      "name": "blocks.5.proj.bias",
+      "shape": [
+        384
+      ],
+      "count": 384,
+      "role": "phone2",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 16562688,
+      "byteLength": 1536,
+      "fullByteOffset": 39035904
+    },
+    {
+      "name": "blocks.5.ln2.weight",
+      "shape": [
+        384
+      ],
+      "count": 384,
+      "role": "phone2",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 16564224,
+      "byteLength": 1536,
+      "fullByteOffset": 39037440
+    },
+    {
+      "name": "blocks.5.ln2.bias",
+      "shape": [
+        384
+      ],
+      "count": 384,
+      "role": "phone2",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 16565760,
+      "byteLength": 1536,
+      "fullByteOffset": 39038976
+    },
+    {
+      "name": "blocks.5.fc1.weight",
+      "shape": [
+        1536,
+        384
+      ],
+      "count": 589824,
+      "role": "phone2",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 16567296,
+      "byteLength": 2359296,
+      "fullByteOffset": 39040512
+    },
+    {
+      "name": "blocks.5.fc1.bias",
+      "shape": [
+        1536
+      ],
+      "count": 1536,
+      "role": "phone2",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 18926592,
+      "byteLength": 6144,
+      "fullByteOffset": 41399808
+    },
+    {
+      "name": "blocks.5.fc2.weight",
+      "shape": [
+        384,
+        1536
+      ],
+      "count": 589824,
+      "role": "phone2",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 18932736,
+      "byteLength": 2359296,
+      "fullByteOffset": 41405952
+    },
+    {
+      "name": "blocks.5.fc2.bias",
+      "shape": [
+        384
+      ],
+      "count": 384,
+      "role": "phone2",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 21292032,
+      "byteLength": 1536,
+      "fullByteOffset": 43765248
+    },
+    {
+      "name": "ln_f.weight",
+      "shape": [
+        384
+      ],
+      "count": 384,
+      "role": "phone2",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 21293568,
+      "byteLength": 1536,
+      "fullByteOffset": 43766784
+    },
+    {
+      "name": "ln_f.bias",
+      "shape": [
+        384
+      ],
+      "count": 384,
+      "role": "phone2",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 21295104,
+      "byteLength": 1536,
+      "fullByteOffset": 43768320
+    },
+    {
+      "name": "head.weight",
+      "shape": [
+        256,
+        384
+      ],
+      "count": 98304,
+      "role": "phone2",
+      "dtype": "float32",
+      "byteOrder": "little",
+      "byteOffset": 21296640,
+      "byteLength": 393216,
+      "fullByteOffset": 43769856
+    }
+  ]
+}

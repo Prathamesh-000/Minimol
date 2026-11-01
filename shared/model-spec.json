@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "architectureVersion": "provisional-preln-gelu-tanh-untied-v1",
+  "seed": 42,
+  "vocabSize": 256,
+  "maxSeqLen": 512,
+  "nLayers": 6,
+  "dModel": 384,
+  "nHeads": 6,
+  "headDim": 64,
+  "dFF": 1536,
+  "layerNormEps": 0.00001,
+  "geluApproximation": "tanh",
+  "totalParameters": 11040768,
+  "dtype": "float32",
+  "bytesPerParameter": 4,
+  "phone1Layers": [0, 1, 2],
+  "phone2Layers": [3, 4, 5]
+}
