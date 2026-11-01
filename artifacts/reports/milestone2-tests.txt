@@ -1,0 +1,36 @@
+✔ activation boundary is exactly 1536 little-endian bytes and rejects invalid payloads (0.898375ms)
+✔ isolated worker runtimes, each with only one shard on disk, match distributed golden outputs (6890.055334ms)
+✔ TypeScript model contract exactly matches the unchanged Python configuration (5.003667ms)
+✔ each engine can own only its assigned shard and exactly three layers (0.592417ms)
+✔ incremental prefill and generation match all seven canonical golden cases (6392.951ms)
+✔ KV appends preserve previous entries and reset produces a fresh deterministic session (30.696916ms)
+✔ bad bytes, activations and positions do not advance cache state; context overflow is rejected (0.7885ms)
+✔ generation coordinator prefill, UTF-8, feedback, zero output, abort and failure reset (603.287167ms)
+✔ a full context allows its last prediction but never feeds it into position 512 (0.778667ms)
+✔ browser loader requests only manifest and selected role shard (152.073625ms)
+✔ loader rejects wrong hash, truncated bytes, full-model ownership and nonfinite weights (49.405958ms)
+✔ loader rejects malformed tensor ownership, offsets, layouts and unsafe file paths (0.849333ms)
+✔ fetch failures never fall back to a different role or unverified weights (0.196625ms)
+✔ row-major scalar matrix/vector and batched multiplication, bias and tail dimensions (0.969917ms)
+✔ erf is accurate and GELU uses the erf formula, including tails and zero (0.162583ms)
+✔ LayerNorm uses population variance, epsilon and affine parameters (0.112125ms)
+✔ byte/position embedding lookup and residual addition (0.190125ms)
+✔ multi-head causal attention agrees with an independent all-history calculation (12.233084ms)
+✔ attention softmax remains finite for large scores (0.139791ms)
+✔ greedy selection resolves ties to the lowest byte and rejects invalid logits (0.2185ms)
+✔ a computation failure poisons the partial cache until an explicit reset (89.948209ms)
+✔ default Phone 2 output contains only byte and position; debug logits are explicit (71.400333ms)
+✔ worker rejects malformed and duplicate requests without advancing the engine (5.907292ms)
+✔ compiled WASM scalar matrix kernel matches scalar FP32 reduction exactly (82.139792ms)
+✔ full role engines using WASM scalar match every golden case (2936.354959ms)
+✔ compiled WASM simd matrix kernel matches scalar FP32 reduction exactly (80.915708ms)
+✔ full role engines using WASM simd match every golden case (2172.733667ms)
+✔ unsupported SIMD and missing kernels fall back explicitly to scalar implementations (12.90825ms)
+ℹ tests 28
+ℹ suites 0
+ℹ pass 28
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 20016.016583

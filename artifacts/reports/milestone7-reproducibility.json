@@ -1,0 +1,18 @@
+{
+  "status": "PASS",
+  "seed": 42,
+  "originalsUnchanged": true,
+  "byteIdentical": {
+    "artifacts/model/weights.bin": true,
+    "public/model/phone1.bin": true,
+    "public/model/phone2.bin": true,
+    "tests/fixtures/golden_vectors.json": true
+  },
+  "sha256": {
+    "artifacts/model/weights.bin": "0b47c07669cbe9d6ac70d52ea0385e035feb4c3d3879896a4aab9788ae4a692c",
+    "public/model/phone1.bin": "582f266866d34f17f081161ff196043ea9ceb0b1d09e0daf034ad0e0f2de22e6",
+    "public/model/phone2.bin": "50a4e8ccc29188b78542957d3705669929dc2e4caf2e334a52622f074c2667f2",
+    "tests/fixtures/golden_vectors.json": "275977673f66bb25557d9715039cedf6398f483323af25b2dc2c6e74dbda5069"
+  },
+  "scope": "pinned Python/PyTorch/NumPy environment; descriptive generator metadata may vary by host"
+}

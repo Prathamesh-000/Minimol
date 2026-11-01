@@ -1,0 +1,247 @@
+{
+  "browser": "156.0.8078.74",
+  "platform": "darwin-arm64",
+  "transport": "local test driver between two browser contexts (not WebRTC)",
+  "backends": [
+    {
+      "backend": "typescript",
+      "cases": [
+        {
+          "case": "ascii_hello",
+          "positions": 12,
+          "maxAbsActivationError": 0.0000016689300537109375,
+          "maxAbsLogitError": 0.0000016093254089355469,
+          "generatedBytesMatch": true,
+          "mainThreadHeartbeatTicks": 37
+        },
+        {
+          "case": "utf8_hindi_emoji",
+          "positions": 30,
+          "maxAbsActivationError": 0.0000016689300537109375,
+          "maxAbsLogitError": 0.0000016689300537109375,
+          "generatedBytesMatch": true,
+          "mainThreadHeartbeatTicks": 97
+        },
+        {
+          "case": "utf8_accent",
+          "positions": 12,
+          "maxAbsActivationError": 0.0000018477439880371094,
+          "maxAbsLogitError": 0.0000014901161193847656,
+          "generatedBytesMatch": true,
+          "mainThreadHeartbeatTicks": 30
+        },
+        {
+          "case": "byte_extremes",
+          "positions": 13,
+          "maxAbsActivationError": 0.0000016689300537109375,
+          "maxAbsLogitError": 0.0000012516975402832031,
+          "generatedBytesMatch": true,
+          "mainThreadHeartbeatTicks": 31
+        },
+        {
+          "case": "single_zero",
+          "positions": 8,
+          "maxAbsActivationError": 7.152557373046875e-7,
+          "maxAbsLogitError": 4.917383193969727e-7,
+          "generatedBytesMatch": true,
+          "mainThreadHeartbeatTicks": 17
+        },
+        {
+          "case": "single_ff",
+          "positions": 8,
+          "maxAbsActivationError": 7.152557373046875e-7,
+          "maxAbsLogitError": 7.152557373046875e-7,
+          "generatedBytesMatch": true,
+          "mainThreadHeartbeatTicks": 19
+        },
+        {
+          "case": "maximum_context",
+          "positions": 512,
+          "maxAbsActivationError": 0.0000016689300537109375,
+          "maxAbsLogitError": 0.0000013113021850585938,
+          "generatedBytesMatch": true,
+          "mainThreadHeartbeatTicks": 1266
+        }
+      ],
+      "assetRequests": [
+        {
+          "role": "phone1",
+          "file": "manifest.json"
+        },
+        {
+          "role": "phone1",
+          "file": "phone1.bin"
+        },
+        {
+          "role": "phone2",
+          "file": "manifest.json"
+        },
+        {
+          "role": "phone2",
+          "file": "phone2.bin"
+        }
+      ],
+      "pageErrors": []
+    },
+    {
+      "backend": "wasm-scalar",
+      "cases": [
+        {
+          "case": "ascii_hello",
+          "positions": 12,
+          "maxAbsActivationError": 0.0000016689300537109375,
+          "maxAbsLogitError": 0.0000016093254089355469,
+          "generatedBytesMatch": true,
+          "mainThreadHeartbeatTicks": 20
+        },
+        {
+          "case": "utf8_hindi_emoji",
+          "positions": 30,
+          "maxAbsActivationError": 0.0000016689300537109375,
+          "maxAbsLogitError": 0.0000016689300537109375,
+          "generatedBytesMatch": true,
+          "mainThreadHeartbeatTicks": 45
+        },
+        {
+          "case": "utf8_accent",
+          "positions": 12,
+          "maxAbsActivationError": 0.0000018477439880371094,
+          "maxAbsLogitError": 0.0000014901161193847656,
+          "generatedBytesMatch": true,
+          "mainThreadHeartbeatTicks": 17
+        },
+        {
+          "case": "byte_extremes",
+          "positions": 13,
+          "maxAbsActivationError": 0.0000016689300537109375,
+          "maxAbsLogitError": 0.0000012516975402832031,
+          "generatedBytesMatch": true,
+          "mainThreadHeartbeatTicks": 21
+        },
+        {
+          "case": "single_zero",
+          "positions": 8,
+          "maxAbsActivationError": 7.152557373046875e-7,
+          "maxAbsLogitError": 4.917383193969727e-7,
+          "generatedBytesMatch": true,
+          "mainThreadHeartbeatTicks": 13
+        },
+        {
+          "case": "single_ff",
+          "positions": 8,
+          "maxAbsActivationError": 7.152557373046875e-7,
+          "maxAbsLogitError": 7.152557373046875e-7,
+          "generatedBytesMatch": true,
+          "mainThreadHeartbeatTicks": 12
+        },
+        {
+          "case": "maximum_context",
+          "positions": 512,
+          "maxAbsActivationError": 0.0000016689300537109375,
+          "maxAbsLogitError": 0.0000013113021850585938,
+          "generatedBytesMatch": true,
+          "mainThreadHeartbeatTicks": 776
+        }
+      ],
+      "assetRequests": [
+        {
+          "role": "phone1",
+          "file": "manifest.json"
+        },
+        {
+          "role": "phone1",
+          "file": "phone1.bin"
+        },
+        {
+          "role": "phone2",
+          "file": "manifest.json"
+        },
+        {
+          "role": "phone2",
+          "file": "phone2.bin"
+        }
+      ],
+      "pageErrors": []
+    },
+    {
+      "backend": "wasm-simd",
+      "cases": [
+        {
+          "case": "ascii_hello",
+          "positions": 12,
+          "maxAbsActivationError": 0.0000016689300537109375,
+          "maxAbsLogitError": 0.0000016093254089355469,
+          "generatedBytesMatch": true,
+          "mainThreadHeartbeatTicks": 16
+        },
+        {
+          "case": "utf8_hindi_emoji",
+          "positions": 30,
+          "maxAbsActivationError": 0.0000016689300537109375,
+          "maxAbsLogitError": 0.0000016689300537109375,
+          "generatedBytesMatch": true,
+          "mainThreadHeartbeatTicks": 35
+        },
+        {
+          "case": "utf8_accent",
+          "positions": 12,
+          "maxAbsActivationError": 0.0000018477439880371094,
+          "maxAbsLogitError": 0.0000014901161193847656,
+          "generatedBytesMatch": true,
+          "mainThreadHeartbeatTicks": 15
+        },
+        {
+          "case": "byte_extremes",
+          "positions": 13,
+          "maxAbsActivationError": 0.0000016689300537109375,
+          "maxAbsLogitError": 0.0000012516975402832031,
+          "generatedBytesMatch": true,
+          "mainThreadHeartbeatTicks": 15
+        },
+        {
+          "case": "single_zero",
+          "positions": 8,
+          "maxAbsActivationError": 7.152557373046875e-7,
+          "maxAbsLogitError": 4.917383193969727e-7,
+          "generatedBytesMatch": true,
+          "mainThreadHeartbeatTicks": 9
+        },
+        {
+          "case": "single_ff",
+          "positions": 8,
+          "maxAbsActivationError": 7.152557373046875e-7,
+          "maxAbsLogitError": 7.152557373046875e-7,
+          "generatedBytesMatch": true,
+          "mainThreadHeartbeatTicks": 8
+        },
+        {
+          "case": "maximum_context",
+          "positions": 512,
+          "maxAbsActivationError": 0.0000016689300537109375,
+          "maxAbsLogitError": 0.0000013113021850585938,
+          "generatedBytesMatch": true,
+          "mainThreadHeartbeatTicks": 713
+        }
+      ],
+      "assetRequests": [
+        {
+          "role": "phone1",
+          "file": "manifest.json"
+        },
+        {
+          "role": "phone1",
+          "file": "phone1.bin"
+        },
+        {
+          "role": "phone2",
+          "file": "manifest.json"
+        },
+        {
+          "role": "phone2",
+          "file": "phone2.bin"
+        }
+      ],
+      "pageErrors": []
+    }
+  ]
+}

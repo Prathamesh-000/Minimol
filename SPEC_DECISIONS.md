@@ -1,0 +1,229 @@
+# miniMol specification decisions
+
+## Authority and scope
+
+The supplied master engineering prompt is authoritative. Current work implements
+Milestones 1–3 and M4 desktop-browser functionality and plans later milestones. No architecture, networking, offline,
+or physical-device constraint is waived by this staged delivery. An official
+reference implementation/weight set, if supplied later, supersedes our seeded
+initialization; migration must regenerate hashes and golden vectors explicitly.
+
+## Canonical model and initialization
+
+- Model ID: `minimol-byte-gpt-v1`; seed: `torch.manual_seed(42)`.
+- Pin Python dependencies to PyTorch 2.5.1, NumPy 2.1.3, pytest 8.3.4. Record the
+  actual generator versions and CPU execution in the manifest. Python 3.12 is the
+  inspected environment. No claim of identical RNG results across other PyTorch
+  releases/platforms; same-environment repeat exports must be byte-identical.
+- Construct on CPU with explicit FP32, in this order: token embedding, position
+  embedding, then blocks 0 through 5, each with LN1, QKV, attention output, LN2,
+  MLP first linear, MLP second linear; then final LN and untied output head.
+- Use stock PyTorch initialization exactly once. Do not apply a GPT-style custom
+  initializer. Embeddings use the module default normal initialization; Linear
+  uses its default Kaiming-uniform weight and fan-in uniform bias; LayerNorm uses
+  ones/zeros. No padding index, dropout, or stochastic inference operations.
+- CPU deterministic algorithms and one compute thread are required for fixture
+  generation. Avoid fused scaled-dot-product attention and opaque fast paths;
+  explicitly compute QK, divide by sqrt(64), apply an upper-triangle causal mask,
+  stable softmax, and AV. Default PyTorch CPU kernels define the canonical result;
+  they do not guarantee cross-engine bit equality.
+- QKV output is contiguous `[Q (384), K (384), V (384)]`, each reshaped into six
+  heads of width 64. No interleaving by head. LayerNorm uses population variance,
+  epsilon `1e-5`, affine weight/bias, and pre-normalization. GELU is
+  `0.5*x*(1+erf(x/sqrt(2)))`, PyTorch `approximate="none"`.
+- All attention and MLP linears have bias. The LM head has no bias and no storage
+  alias with the token embedding. Learned absolute positions are 0–511.
+
+| Component | Parameters |
+| --- | ---: |
+| Token embedding | 98,304 |
+| Position embedding | 196,608 |
+| Each block | 1,774,464 |
+| Six blocks | 10,646,784 |
+| Final LayerNorm | 768 |
+| Untied head | 98,304 |
+| **Total** | **11,040,768** |
+
+## Serialization contract v1
+
+- Raw headerless little-endian IEEE-754 binary32; C contiguous row-major.
+- Explicit tensor order: embeddings, each block in construction order (weight
+  before bias), final LN weight/bias, LM-head weight. No padding or alignment gaps.
+- Linear matrices retain PyTorch `[out, in]`; embeddings are `[entry, hidden]`.
+- Each manifest tensor specifies name, shape, dtype, element and byte counts,
+  owner, canonical-file byte offset, and role-shard byte offset. Offsets are bytes,
+  not float indices. Hash each exact file's bytes using SHA-256.
+- `artifacts/model/weights.bin`: 44,163,072 bytes, never a public browser asset.
+- `public/model/phone1.bin`: 5,618,304 values / 22,473,216 bytes.
+- `public/model/phone2.bin`: 5,422,464 values / 21,689,856 bytes.
+- Shards concatenate to the canonical file because the ownership boundary is
+  contiguous in tensor order. Export must assert this, not silently repartition.
+- `artifacts/model/manifest.json` includes canonical and role files;
+  `public/model/manifest.json` lists only role files. Config hash is SHA-256 of
+  UTF-8 JSON serialized with sorted keys and separators `(',', ':')`.
+- Manifests include deterministic generator metadata, not timestamps or absolute
+  machine paths. The public manifest is metadata; no browser is authorized to
+  fetch the other role's shard merely because both file hashes are listed.
+- Hashes detect corruption and mismatch, not a malicious publisher replacing
+  both manifest and file. Initial distribution trusts the static HTTPS origin.
+
+## Inputs, outputs, and numerical checks
+
+- IDs are UTF-8 bytes (0–255), never Unicode code points or external tokenizer
+  IDs. The reference accepts nonempty rank-two int64 tensors `[batch, sequence]`
+  with sequence length 1–512 and no padding. Reject invalid ranks/types/ranges,
+  empty prompts, and overlong context; do not invent a 257th BOS/EOS token.
+- Greedy argmax selects the first (lowest) byte ID on ties. No EOS exists; stop on
+  requested output length, user stop, failure, or context capacity.
+- A prompt of P bytes can yield at most `513 - P` predicted bytes: the prediction
+  at input position 511 is valid, but cannot be fed back at position 512. Never
+  process more than 512 total prompt-plus-feedback bytes. UI must explain this
+  distinction between processed context bytes and displayed generated bytes.
+- Randomly initialized weights are intentionally **untrained**. Output may be
+  nonsensical and contain invalid UTF-8. Keep raw bytes; stream TextDecoder with
+  replacement for display. Do not substitute a trained model or plausible text.
+- Golden fixtures contain prompts (ASCII, multibyte UTF-8, boundary byte values,
+  and 512-byte context), Phone 1 activations, full-model logits, greedy IDs, and
+  short autoregressive byte sequences. Each fixture binds to model/config hashes.
+- Initial cross-engine tolerances are `atol=1e-4, rtol=1e-4` for activations and
+  logits, with identical greedy IDs required. Tighten where evidence supports it;
+  report any necessary change explicitly. PyTorch reload/split checks use the
+  same tolerances. Repeat serialization requires exact bytes, not tolerance.
+- Floating-point reduction/erf implementations and SIMD may differ. Keep a
+  scalar path, stable accumulation order, and measure actual error before
+  accepting a browser/WASM engine. FP32 alone is not proof of determinism.
+
+## Decisions and risks for subsequent milestones
+
+| Ambiguity or risk | Decision / required mitigation |
+| --- | --- |
+| Project name versus required landing text | Repository/product is miniMol; landing also displays MESH INFERENCE and the prescribed subtitle. |
+| Empty prompt without BOS | Reject with a useful error. No vocabulary extension. |
+| Context overflow / rolling window | Stop before position 512; rolling windows are deferred. Reset both role caches on a fresh generation. |
+| Unspecified binary protocol details | Define/version in M3; use explicit little-endian encoding, bounded payloads and request/session/position validation. |
+| Same-role pairing / incompatible model | Reject before READY; bind role, protocol, dimensions, config hash and both expected shard hashes. |
+| Host-only ICE, mDNS and hotspot/client isolation | Test selected candidate stats on real networks; useful failure/retry path; no STUN/TURN fallback. |
+| HTTPS and offline bootstrap | Initial trusted HTTPS visit/cache is required; mobile HTTP LAN URLs are not a substitute for a secure context. |
+| QR size and iOS scanner availability | Bundle scanner fallback and encoding locally; camera permissions; manual full SDP copy/paste when QR capacity is exceeded. |
+| Offline quota, eviction and background suspension | Verify readiness from actual caches, surface eviction, fail cleanly on peer suspension; test both mobile platforms. |
+| Emscripten and CMake absent in inspected environment | M2 uses local WASI SDK 25 for C++ WASM/SIMD matrix kernels; TypeScript remains the scalar fallback. No GPU/server inference. |
+| FP32 memory and CPU cost | ~21–22 MiB role weights plus 4.5 MiB KV cache, activations and copies; use Workers, reuse buffers, measure mobile performance. |
+| Stop/disconnect mid-step | Session IDs, timeouts, backpressure and cache-reset synchronization; no dropped activation or partial continuation. |
+| Untrusted SDP/messages | Bounds, finite-float checks, role/hash/schema validation, text-only rendering; no eval or exposed private device information. |
+| Physical phones unavailable to automation | Prepare test matrix and record unexecuted cases honestly. Desktop tests do not establish mobile success. |
+| Real benchmark evidence absent initially | Do not populate UI/report with invented numbers. Record warm-up and multiple measured runs later. |
+
+No technical ambiguity requires changing a non-negotiable constraint. Local
+network interoperability, meaningful trained output, cross-engine numerical
+agreement, and real-device performance remain explicit risks to validate.
+
+## Milestone 4 implementation decisions
+
+- Preserve the M3 binary protocol and coordinator. Main-thread WebRTC is bridged
+  to a dedicated distributed Worker; inference and KV state stay off the UI thread.
+  Each Worker loads only its role's verified shard. Real DataChannel buffer-low
+  notifications and bounded queues provide backpressure through the bridge.
+- Always use empty ICE servers and reliable ordered DataChannel. Validate the
+  selected candidate pair as host/host before allowing the model handshake.
+  Unsupported stats or direct connectivity failures are errors, never relay fallbacks.
+- Mobile screenshots now show a post-answer ICE timeout with mDNS-only candidates.
+  This establishes connection failure, not proof of mDNS filtering versus peer
+  isolation. Add optional explicit private Wi-Fi IPv4 export to remove the mDNS
+  dependency while retaining host-only ICE. Require the user to check their own
+  Wi-Fi IP; do not invent candidate ports, credentials or successful readiness.
+  The optional development HTTPS own-IP hint uses only the request socket address,
+  ignores forwarded headers, and is unnecessary for static hosting/manual entry.
+  ICE diagnostics omit credentials and addresses; no server relays tensors or SDP.
+- Use completed manual copy/paste offer/answer exchange under the explicit M4
+  QR-or-copy/paste allowance. QR scanning remains deferred; no signaling service
+  or remote runtime dependency is introduced. SDP is bounded at 64 KiB.
+- Disconnect/retry creates a new peer connection, Worker, protocol session and
+  caches. Protocol PING/PONG and a 20-second inbound inactivity deadline guard
+  idle sessions; existing request deadlines handle in-flight loss. Background
+  suspension may delay browser timers and requires foreground recovery/retry.
+- A minimal static HTTPS demo is delivered in demo-dist, not the future React
+  dashboard. Desktop Chrome has been tested. Physical iOS Safari/Android and
+  WAN-off behavior after caching remain unverified.
+
+## Milestone 3 implementation decisions
+
+- Keep M2 engines unchanged. One DistributedRuntime wraps one verified role
+  engine. The generation coordinator resides with Phone 1 and owns no remote model.
+- Use a 40-byte, explicitly little-endian protocol-v1 header and a 2,048-byte
+  maximum frame. A random 128-bit connection identity plus monotonic generation
+  and request IDs prevents accidental stale-session/cache reuse. See PROTOCOL.md.
+- One inference exchange is in flight at a time. No automatic activation retry:
+  a missing response cannot establish whether Phone 2 already mutated its cache.
+  Timeout or uncertain cancellation closes the session and resets both peers;
+  recovery requires a fresh connection/handshake. Graceful STOP is acknowledged.
+- Existing model tolerances are unchanged. Logits cross the boundary only when
+  both peers explicitly support debug mode and the request asks for it.
+- Use two OS Node processes, independent heaps and separate role-only directories
+  for the decisive simulation. IPC advanced serialization carries actual binary
+  frames; the parent broker does no tensor computation. This is execution/memory
+  isolation evidence, not an OS security sandbox against arbitrary filesystem access.
+- Backpressure queues have byte/frame limits and deadlines. Queued writes reject
+  explicitly on overflow/failure. Receiver bounds and validation apply before
+  inference. The transport contract is ready for a future reliable ordered
+  DataChannel adapter; no WebRTC work is included in M3.
+
+## Milestone 2 implementation decisions
+
+- Runtime code is TypeScript compiled to browser ES modules. Node is a build/test
+  host only; runtime modules import no Node/Python APIs or inference packages.
+  Web Crypto verifies the selected shard before engine construction.
+- Weights, intermediate tensors, boundary activations and K/V arrays are FP32.
+  Matrix/attention dot products use four FP32 accumulators and a fixed
+  left-associated reduction. Products/additions use `Math.fround`. JavaScript
+  double precision is used for LayerNorm statistics, softmax normalization sums,
+  and erf evaluation, then tensor outputs round to FP32. Cross-engine bit equality
+  is not assumed.
+- Exact GELU uses the erf definition, not tanh. Since JavaScript has no standard
+  `Math.erf`, a convergent positive series evaluates erf to double precision.
+  At absolute arguments >= 6, erf rounds to its limiting sign. Tests check known
+  erf values and PyTorch vectors without relaxing the original tolerance.
+- Each layer caches keys and values in time-major `[512, 6, 64]` layout. Each
+  role owns three pairs (4.5 MiB). Prefill processes one byte at a time with the
+  same cache update as generation. Batched prefill is deferred.
+- Engines reject nonsequential/overflow positions and invalid inputs before cache
+  mutation. Mid-compute failures require reset. Generation transport errors and
+  abort reset both roles. Callers must serialize generation sessions; concurrent
+  generations on one transport are unsupported.
+- Workers bind role at creation and cannot change it through a request. Loading
+  is one-shot; failed loading requires a new worker. Monotonic IDs and a bounded
+  local request queue do not replace the production M3/M4 network handshake.
+- WASM accelerates every linear projection. Attention, GELU, LayerNorm and
+  generation remain TypeScript. Compilation disables contraction and fast-math.
+  SIMD uses four independent lanes in the same reduction order as scalar.
+  Executed matrix tests match exactly across all three backends; complete engines
+  match PyTorch within the existing tolerances and with exact greedy IDs.
+- One WASM backend belongs to one engine. Bounded memory holds one additional
+  copy of that role's matrix weights and reused scratch. This adds roughly a
+  role-shard-sized region to the TypeScript backend's ~21–22 MiB weights plus
+  4.5 MiB KV cache. Loading/hash temporaries and actual process memory still need
+  mobile profiling.
+- Builds use the official [WASI SDK 25](https://github.com/WebAssembly/wasi-sdk/releases/tag/wasi-sdk-25),
+  LLVM 19.1.5, installed as development tooling under ignored `.tools/`.
+  SIMD compilation uses `-msimd128` as described in the
+  [compiler documentation](https://emscripten.org/docs/porting/simd.html).
+  Optional WASM failure reports its reason before falling back, with no role,
+  model ownership, or remote-service changes.
+- Chrome validation relays bytes through a local automation driver between two
+  browser contexts. Isolated-worker tests transfer actual binary activations.
+  Neither proves WebRTC/physical-device operation. Desktop benchmark results
+  exclude network transport and are explicitly labeled.
+
+## M5 decisions
+
+- Keep the working HTML/TypeScript frontend and Worker engine; no framework rewrite.
+- Explicit offline preparation caches a versioned shell, not both weight shards.
+  The selected role is remembered; changing it clears the other role's disk shard.
+- Verify full shard bytes before cache commit and on each cached load. Quota
+  denial is an online-only warning, not a fabricated readiness state.
+- No skipWaiting during active demos. Preserve Worker query URLs when returning
+  cached responses. Delete obsolete shell versions only at safe activation.
+- QR uses locally bundled pinned packages, <=320-character chunks, bounded
+  assembly, SHA-256, 15-minute expiry and existing SDP validation. Camera denial
+  leaves manual exchange intact. No camera/cloud inference service is used.
+- User-reported successful physical M4 execution is recorded separately from
+  desktop M5 tests. Physical M5 offline/camera validation remains outstanding.

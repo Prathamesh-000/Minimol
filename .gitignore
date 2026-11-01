@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+.pytest_cache/
+*.py[cod]
+artifacts/model/
+public/model/*.bin
+node_modules/
+dist/
+demo-dist/
+.tools/
+.DS_Store
+
+release-archives/

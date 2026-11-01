@@ -1,0 +1,43 @@
+{
+  "status": "PASS",
+  "buildId": "9f5153c5b7effc98",
+  "scope": "local trusted HTTPS release/demo on Mac; no physical-device testing",
+  "assets": [
+    {
+      "path": "/",
+      "status": 200,
+      "bytes": 13778,
+      "type": "text/html"
+    },
+    {
+      "path": "/assets/9f5153c5b7effc98/workers/distributed.worker.js",
+      "status": 200,
+      "bytes": 5584,
+      "type": "text/javascript"
+    },
+    {
+      "path": "/model/phone1.bin",
+      "status": 200,
+      "bytes": 22473216,
+      "type": "application/octet-stream"
+    },
+    {
+      "path": "/model/phone2.bin",
+      "status": 200,
+      "bytes": 21689856,
+      "type": "application/octet-stream"
+    },
+    {
+      "path": "/wasm/matrix-simd.wasm",
+      "status": 200,
+      "bytes": 1788,
+      "type": "application/wasm"
+    },
+    {
+      "path": "/sw.js",
+      "status": 200,
+      "bytes": 3648,
+      "type": "text/javascript"
+    }
+  ]
+}

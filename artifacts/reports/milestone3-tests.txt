@@ -1,0 +1,38 @@
+✔ two isolated Node processes exchange production binary frames and match every golden case (6943.642958ms)
+✔ two-process timeout invalidates both caches and does not retry activations (776.822875ms)
+✔ process interruption rejects in-flight generation; incompatible HELLO rejects before inference (985.071708ms)
+✔ binary HELLO roundtrip preserves all compatibility fields and uses protocol version 1 (1.212375ms)
+✔ ACTIVATION has exactly 384 explicitly little-endian FP32 values plus a 40-byte header (0.345916ms)
+✔ NEXT_BYTE carries one byte and local duration; 256 logits require explicit debug flag (0.49125ms)
+✔ control, error and ping messages roundtrip with strict sizes (0.208334ms)
+✔ malformed headers, mismatched lengths and non-binary/oversized input are rejected (0.314834ms)
+✔ malformed payloads, nonfinite activations/logits/timings and reserved fields are rejected (0.463417ms)
+✔ HELLO/READY gates generation, START resets both caches, and STOP is acknowledged (172.647041ms)
+✔ coordinator reuses the canonical prefill/feedback semantics and rejects concurrent runs (237.061375ms)
+✔ handshake rejects incompatible role before any inference (1.704666ms)
+✔ handshake rejects incompatible modelId before any inference (1.404ms)
+✔ handshake rejects incompatible configHash before any inference (1.401667ms)
+✔ handshake rejects incompatible shardHash before any inference (2.533125ms)
+✔ handshake rejects incompatible hidden before any inference (0.825875ms)
+✔ handshake rejects incompatible vocabulary before any inference (0.951875ms)
+✔ handshake rejects incompatible context before any inference (1.390125ms)
+✔ debug logits require bilateral negotiation (1.632792ms)
+✔ uncorrelated request responses fail closed and clear both caches (15.325625ms)
+✔ uncorrelated position responses fail closed and clear both caches (10.8455ms)
+✔ uncorrelated generation responses fail closed and clear both caches (11.796375ms)
+✔ uncorrelated connection responses fail closed and clear both caches (10.469417ms)
+✔ uncorrelated type responses fail closed and clear both caches (10.648ms)
+✔ uncorrelated duplicate responses fail closed and clear both caches (10.856541ms)
+✔ missing response times out without retrying a cache-mutating activation (45.711333ms)
+✔ handshake timeout, abrupt close, in-flight cancellation and fresh connection recovery (170.98225ms)
+✔ backpressure queues immutable frames in order and resumes without dropping (0.878792ms)
+✔ queue overflow rejects explicitly and stalled queues time out (31.611125ms)
+✔ close and send exceptions reject all pending frames instead of continuing after a gap (0.219875ms)
+ℹ tests 30
+ℹ suites 0
+ℹ pass 30
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 9633.059916

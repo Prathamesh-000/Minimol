@@ -1,0 +1,31 @@
+{
+  "status": "verified",
+  "parameter_count": 11040768,
+  "tensor_count": 77,
+  "config_sha256": "307401b815cf19d2919b799f793a46e810a3bd2857f5da1abf661c4476c390ec",
+  "all_weights_finite_fp32": true,
+  "exact_reconstruction": true,
+  "files": {
+    "full": {
+      "byte_length": 44163072,
+      "name": "weights.bin",
+      "parameter_count": 11040768,
+      "sha256": "0b47c07669cbe9d6ac70d52ea0385e035feb4c3d3879896a4aab9788ae4a692c"
+    },
+    "phone1": {
+      "byte_length": 22473216,
+      "name": "phone1.bin",
+      "parameter_count": 5618304,
+      "sha256": "582f266866d34f17f081161ff196043ea9ceb0b1d09e0daf034ad0e0f2de22e6"
+    },
+    "phone2": {
+      "byte_length": 21689856,
+      "name": "phone2.bin",
+      "parameter_count": 5422464,
+      "sha256": "50a4e8ccc29188b78542957d3705669929dc2e4caf2e334a52622f074c2667f2"
+    }
+  }
+}
+.................................................................        [100%]
+- generated xml file: /Users/vikrantsaini/Documents/miniMol/artifacts/reports/model-tests.xml -
+65 passed in 4.35s

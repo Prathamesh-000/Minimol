@@ -1,0 +1,31 @@
+{
+  "name": "minimol",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "npm run build && node --test --test-concurrency=1 tests/inference/*.test.mjs tests/networking/*.test.mjs tests/distributed/*.test.mjs",
+    "test:distributed": "bash scripts/test-distributed.sh",
+    "test:model": "bash scripts/test-model.sh",
+    "test:browser": "node scripts/test-browser.mjs",
+    "build:demo": "npm run build && node scripts/build-demo.mjs",
+    "test:webrtc": "npm run build:demo && node scripts/test-webrtc.mjs",
+    "benchmark:cpu": "node scripts/benchmark-inference.mjs",
+    "build:wasm": "bash scripts/build-wasm.sh",
+    "test:milestone5": "npm run build:demo && node scripts/test-milestone5.mjs",
+    "release:build": "node scripts/package-release.mjs",
+    "release:verify": "node scripts/verify-release.mjs",
+    "reproduce:model": ".venv/bin/python -B scripts/reproduce-model.py",
+    "test:release": "node --test tests/release/*.test.mjs",
+    "reproduce:build": "node scripts/reproduce-build.mjs",
+    "test:mobile": "npm run build:demo && node scripts/test-mobile-reliability.mjs"
+  },
+  "devDependencies": {
+    "jsqr": "1.4.0",
+    "playwright": "1.64.1",
+    "qrcode-generator": "2.0.4",
+    "typescript": "5.7.3"
+  }
+}

@@ -1,0 +1,83 @@
+
+> minimol@0.2.0 test
+> npm run build && node --test --test-concurrency=1 tests/inference/*.test.mjs tests/networking/*.test.mjs tests/distributed/*.test.mjs
+
+
+> minimol@0.2.0 build
+> tsc -p tsconfig.json
+
+✔ two isolated Node processes exchange production binary frames and match every golden case (7893.626833ms)
+✔ two-process timeout invalidates both caches and does not retry activations (653.289417ms)
+✔ process interruption rejects in-flight generation; incompatible HELLO rejects before inference (865.319875ms)
+✔ activation boundary is exactly 1536 little-endian bytes and rejects invalid payloads (0.895792ms)
+✔ isolated worker runtimes, each with only one shard on disk, match distributed golden outputs (7902.28875ms)
+✔ TypeScript model contract exactly matches the unchanged Python configuration (5.632ms)
+✔ each engine can own only its assigned shard and exactly three layers (0.615459ms)
+✔ incremental prefill and generation match all seven canonical golden cases (6483.417ms)
+✔ KV appends preserve previous entries and reset produces a fresh deterministic session (31.742667ms)
+✔ bad bytes, activations and positions do not advance cache state; context overflow is rejected (0.7985ms)
+✔ generation coordinator prefill, UTF-8, feedback, zero output, abort and failure reset (607.013291ms)
+✔ a full context allows its last prediction but never feeds it into position 512 (0.69ms)
+✔ browser loader requests only manifest and selected role shard (157.714917ms)
+✔ loader rejects wrong hash, truncated bytes, full-model ownership and nonfinite weights (47.910875ms)
+✔ loader rejects malformed tensor ownership, offsets, layouts and unsafe file paths (0.898375ms)
+✔ fetch failures never fall back to a different role or unverified weights (0.226375ms)
+✔ row-major scalar matrix/vector and batched multiplication, bias and tail dimensions (1.012542ms)
+✔ erf is accurate and GELU uses the erf formula, including tails and zero (0.162833ms)
+✔ LayerNorm uses population variance, epsilon and affine parameters (0.116208ms)
+✔ byte/position embedding lookup and residual addition (0.188333ms)
+✔ multi-head causal attention agrees with an independent all-history calculation (12.039916ms)
+✔ attention softmax remains finite for large scores (0.139625ms)
+✔ greedy selection resolves ties to the lowest byte and rejects invalid logits (0.230541ms)
+✔ a computation failure poisons the partial cache until an explicit reset (92.682291ms)
+✔ default Phone 2 output contains only byte and position; debug logits are explicit (75.947042ms)
+✔ worker rejects malformed and duplicate requests without advancing the engine (6.239208ms)
+✔ compiled WASM scalar matrix kernel matches scalar FP32 reduction exactly (84.985709ms)
+✔ full role engines using WASM scalar match every golden case (2976.227417ms)
+✔ compiled WASM simd matrix kernel matches scalar FP32 reduction exactly (89.951209ms)
+✔ full role engines using WASM simd match every golden case (2131.398541ms)
+✔ unsupported SIMD and missing kernels fall back explicitly to scalar implementations (12.575958ms)
+✔ explicit Wi-Fi address changes only exported mDNS UDP addresses, retaining actual ICE port and credentials (0.899167ms)
+✔ Wi-Fi IP entry rejects public, loopback, multicast, malformed and injection values (0.6205ms)
+✔ address workaround never rewrites relay/reflexive/TCP candidates or unrelated SDP fields (0.10125ms)
+✔ manual signaling validates size, version, opposite role, type and application SDP (0.565ms)
+✔ signaling rejects relay and server-reflexive candidates, accepting host candidates only (0.222834ms)
+✔ binary HELLO roundtrip preserves all compatibility fields and uses protocol version 1 (1.176166ms)
+✔ ACTIVATION has exactly 384 explicitly little-endian FP32 values plus a 40-byte header (0.337083ms)
+✔ NEXT_BYTE carries one byte and local duration; 256 logits require explicit debug flag (0.478125ms)
+✔ control, error and ping messages roundtrip with strict sizes (0.19975ms)
+✔ malformed headers, mismatched lengths and non-binary/oversized input are rejected (0.3085ms)
+✔ malformed payloads, nonfinite activations/logits/timings and reserved fields are rejected (0.427083ms)
+✔ QR chunk reassembly handles reversed order and duplicates without changing signaling (3.469083ms)
+✔ QR rejects malformed, expired, future, wrong-role, mixed and corrupted exchanges (0.880709ms)
+✔ HELLO/READY gates generation, START resets both caches, and STOP is acknowledged (175.8595ms)
+✔ coordinator reuses the canonical prefill/feedback semantics and rejects concurrent runs (242.72975ms)
+✔ handshake rejects incompatible role before any inference (3.393ms)
+✔ handshake rejects incompatible modelId before any inference (0.911125ms)
+✔ handshake rejects incompatible configHash before any inference (0.980708ms)
+✔ handshake rejects incompatible shardHash before any inference (1.422416ms)
+✔ handshake rejects incompatible hidden before any inference (1.383875ms)
+✔ handshake rejects incompatible vocabulary before any inference (1.460042ms)
+✔ handshake rejects incompatible context before any inference (1.498875ms)
+✔ debug logits require bilateral negotiation (2.060166ms)
+✔ uncorrelated request responses fail closed and clear both caches (19.656958ms)
+✔ uncorrelated position responses fail closed and clear both caches (11.09925ms)
+✔ uncorrelated generation responses fail closed and clear both caches (10.818833ms)
+✔ uncorrelated connection responses fail closed and clear both caches (11.434417ms)
+✔ uncorrelated type responses fail closed and clear both caches (10.951083ms)
+✔ uncorrelated duplicate responses fail closed and clear both caches (11.036667ms)
+✔ missing response times out without retrying a cache-mutating activation (47.837792ms)
+✔ handshake timeout, abrupt close, in-flight cancellation and fresh connection recovery (169.105417ms)
+✔ backpressure queues immutable frames in order and resumes without dropping (0.887541ms)
+✔ queue overflow rejects explicitly and stalled queues time out (31.733083ms)
+✔ close and send exceptions reject all pending frames instead of continuing after a gap (0.222ms)
+✔ byte metrics count buffers before a Worker-like transport detaches them (0.175833ms)
+✔ physical scenarios begin NOT TESTED and PASS/FAIL requires actual observations (1.299042ms)
+ℹ tests 67
+ℹ suites 0
+ℹ pass 67
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 31723.523375

@@ -1,0 +1,19 @@
+{
+  "model_id": "minimol-byte-gpt-v1",
+  "architecture": "pre-ln-causal-gpt",
+  "vocab_size": 256,
+  "max_seq_len": 512,
+  "n_layers": 6,
+  "hidden_dim": 384,
+  "n_heads": 6,
+  "head_dim": 64,
+  "ff_dim": 1536,
+  "layer_norm_eps": 0.00001,
+  "gelu_approximate": "none",
+  "linear_bias": true,
+  "lm_head_bias": false,
+  "tie_embeddings": false,
+  "dtype": "float32",
+  "split_layer": 3,
+  "parameter_count": 11040768
+}

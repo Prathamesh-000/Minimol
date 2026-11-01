@@ -1,0 +1,40 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>miniMol CPU engine validation</title>
+<p id="status">Loading one role in a dedicated worker…</p>
+<script type="module">
+const params = new URL(location.href).searchParams;
+const role = params.get('role'), backend = params.get('backend');
+const worker = new Worker(`/dist/workers/inference.worker.js?role=${role}`, { type: 'module' });
+let sequence = 0;
+const pending = new Map();
+function request(type, data = {}, transfer = []) {
+  return new Promise((resolve, reject) => {
+    const id = sequence++; pending.set(id, { resolve, reject });
+    worker.postMessage({ id, type, ...data }, transfer);
+  });
+}
+worker.onmessage = ({ data }) => {
+  const callback = pending.get(data.id); pending.delete(data.id);
+  if (!callback) return;
+  if (data.ok) callback.resolve(data.result); else callback.reject(new Error(data.error));
+};
+worker.onerror = event => { for (const p of pending.values()) p.reject(new Error(event.message)); pending.clear(); };
+window.heartbeat = 0;
+setInterval(() => window.heartbeat++, 10);
+window.ready = request('load', {
+  modelBaseUrl: `${location.origin}/${role}/model/`, wasmBaseUrl: `${location.origin}/wasm/`, backend,
+}).then(result => { document.querySelector('#status').textContent = `${role}: ${result.backend}, model verified`; return result; });
+window.engine = {
+  reset: () => request('reset'), stats: () => request('stats'),
+  async byte(byte, position) {
+    const result = await request('step', { byte, position });
+    return { bytes: Array.from(new Uint8Array(result.activation)), computeMs: result.computeMs };
+  },
+  async activation(bytes, position, debug) {
+    const activation = Uint8Array.from(bytes).buffer;
+    const result = await request('step', { activation, position, debug }, [activation]);
+    return { ...result, logits: result.logits ? Array.from(result.logits) : undefined };
+  },
+};
+</script>

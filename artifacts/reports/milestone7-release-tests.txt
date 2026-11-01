@@ -1,0 +1,17 @@
+
+> minimol@0.2.0 test:release
+> node --test tests/release/*.test.mjs
+
+✔ packaged release independently verifies canonical shards, all assets and inventory (146.375708ms)
+✔ changed shard bytes are rejected (534.698417ms)
+✔ missing Worker and unlisted artifacts are rejected (1014.861166ms)
+✔ tampered checksums and fake physical PASS are rejected (1409.298083ms)
+✔ verification never executes modified package JavaScript (525.792875ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3680.647833

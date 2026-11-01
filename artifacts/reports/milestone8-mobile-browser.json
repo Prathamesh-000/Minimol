@@ -1,0 +1,39 @@
+{
+  "physicalPhonesTested": false,
+  "scope": "Desktop Chrome with synthetic visibility/timer transitions and actual Worker termination/WebRTC. NOT screen-lock or mobile evidence.",
+  "tests": [
+    "pending manual offer survives synthetic background/foreground; canonical pair works without SharedArrayBuffer/COOP",
+    "active background cancels actual incremental inference, blocks duplicate generation and cleans Worker/timers/listeners/pending RPCs",
+    "fresh pairing after lifecycle cancellation restores canonical generation",
+    "synthetic execution gap rejects stale work before emitting new bytes",
+    "actual silent Worker termination detected by deadline; session invalidated",
+    "new Worker and verified cached shard recover after termination",
+    "synthetic freeze invalidates active session instead of pretending background execution",
+    "three repeated role load/unload cycles reuse verified cache and release session resources (GC/RSS not asserted)",
+    "invalid actual binary DataChannel frame fails closed with visible error",
+    "final reconnection, golden KV progression and measured load/WASM memory diagnostics"
+  ],
+  "browser": "156.0.8078.74",
+  "finalResources": [
+    {
+      "closed": true,
+      "generating": false,
+      "pendingCommands": 0,
+      "heartbeatActive": false,
+      "watchdogActive": false,
+      "lifecycleBound": false,
+      "workerTerminationRequested": true,
+      "dataChannelBufferedBytes": 0
+    },
+    {
+      "closed": true,
+      "generating": false,
+      "pendingCommands": 0,
+      "heartbeatActive": false,
+      "watchdogActive": false,
+      "lifecycleBound": false,
+      "workerTerminationRequested": true,
+      "dataChannelBufferedBytes": 0
+    }
+  ]
+}

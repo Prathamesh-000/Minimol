@@ -1,0 +1,82 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>miniMol two-phone demo</title>
+<style>body{font:16px system-ui;background:#121820;color:#eee;max-width:720px;margin:auto;padding:20px}textarea{width:100%;box-sizing:border-box;min-height:100px}button,select,input{font:inherit;padding:10px;margin:6px 0}pre{white-space:pre-wrap;overflow-wrap:anywhere}button:disabled{opacity:.4}
+:root{color-scheme:dark}body{max-width:1000px;padding:24px;background:#0b111a;color:#e5edf7;line-height:1.55}h1{font-size:clamp(25px,5vw,40px);letter-spacing:-1px}button{background:#c1f56a;color:#17220c;border:0;border-radius:10px;cursor:pointer;font-weight:600}button:disabled{background:#334155;color:#a8b7cc;opacity:.7;cursor:not-allowed}textarea,input,select{background:#182333;color:#edf4ff;border:1px solid #41516a;border-radius:8px;padding:12px;max-width:100%}label{display:block;margin-top:14px;font-weight:600}textarea{font:14px ui-monospace,monospace}#local,#remote{min-height:110px}#status{padding:16px;border-left:3px solid #c1f56a;background:#182333}#dashboard{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:10px;margin:24px 0}.metric{background:#182333;padding:14px;border-radius:12px}.metric small{display:block;color:#9bacc4}.metric strong{display:block;font-size:18px}#qr-canvas{background:white;width:min(100%,400px);height:auto;image-rendering:pixelated}video{max-width:100%;max-height:340px}details{background:#182333;padding:12px;border-radius:10px}#output,#bytes{background:#182333;padding:12px;min-height:24px}#metrics{font-size:12px}a{color:#c1f56a}
+</style>
+<h1>miniMol — MESH INFERENCE</h1><p>Distributed AI across two smartphones. CPU only; keep both screens awake on the same Wi-Fi or hotspot.</p>
+<p>Build: <strong id="build">9f5153c5b7effc98</strong>. Open this URL directly in Safari/Chrome; keep this same tab open while transferring text.</p><p id="link-state">Not connected</p><details><summary>Connection diagnostics</summary><pre id="connection"></pre></details>
+<section id="dashboard" aria-label="Live demo dashboard">
+<div class="metric"><small>This device computes</small><strong id="d-layers">Select a role</strong></div>
+<div class="metric"><small>Network availability</small><strong id="d-network">Checking</strong></div>
+<div class="metric"><small>Shard</small><strong id="d-shard">Not loaded</strong></div>
+<div class="metric"><small>Output bytes</small><strong id="d-count">0</strong></div>
+<div class="metric"><small>Output bytes / sec (includes prefill)</small><strong id="d-speed">—</strong></div>
+<div class="metric"><small>Protocol bytes sent / received</small><strong id="d-wire">0 / 0</strong></div>
+<div class="metric"><small>KV occupied / allocated</small><strong id="d-kv">Not allocated</strong></div>
+<div class="metric"><small>CPU backend</small><strong id="backend">Not loaded</strong></div>
+<div class="metric"><small>Peer connection</small><strong id="peer-state">new</strong></div>
+<div class="metric"><small>DataChannel</small><strong id="channel-state">not received</strong></div>
+<div class="metric"><small>Both-phone participation</small><strong id="participation">Awaiting verified inference</strong></div></section>
+<p>Last error: <span id="last-error" role="alert">None recorded</span></p>
+<details><summary>Physical validation and benchmark evidence</summary>
+<label>Measurement environment <select id="device-class"><option>UNCLASSIFIED — choose before exporting</option><option>DESKTOP</option><option>PHYSICAL MOBILE — operator confirmed</option></select></label>
+<label>Test <select id="validation-test"></select></label><p id="validation-expected"></p>
+<label>Observed status <select id="validation-status"><option>NOT TESTED</option><option>PASS</option><option>FAIL</option></select></label>
+<label>Actual observations / error / device model <textarea id="validation-note"></textarea></label>
+<button id="validation-record">Record observed result</button><button id="validation-export">Export device evidence JSON</button>
+<button id="run-benchmark">Benchmark real pair (Phone 1)</button><p>Fixed Hello / 8 bytes, 2 warmups + 5 measured runs. Keep both screens awake. Do not run Generate concurrently.</p>
+<pre id="benchmark-result"></pre><pre id="validation-results"></pre></details>
+<button id="offline">Prepare offline shell / retry</button><p id="offline-state">Offline reload has not been verified. Load your role, then prepare the shell.</p>
+<label>Role <select id="role"><option value="phone1">Phone 1 — embeddings + layers 0–2</option><option value="phone2">Phone 2 — layers 3–5 + output</option></select></label>
+<button id="load">Load selected shard / retry</button><p id="status">Select a role and load its model from the HTTPS host.</p>
+<label for="lan-ip">THIS phone's Wi-Fi IPv4 — direct IP pairing</label>
+<input id="lan-ip" inputmode="decimal" autocomplete="off" placeholder="e.g. 10.10.222.230">
+<p id="ip-help">Checking the local HTTPS host for this phone's address…</p>
+<p>Check this address in iPhone Settings → Wi-Fi → ⓘ → IP Address (Android: Wi-Fi network details). It must be this phone's IP, not the Mac's or the other phone's. This shares the address in your offer/answer and avoids .local DNS lookup. Leave blank to use browser addresses. Changing it requires a fresh offer/answer on both phones.</p>
+<button id="offer" disabled>Create offer (Phone 1)</button>
+<label for="local">Your signaling text — select and copy to the other phone</label><textarea id="local" readonly></textarea><button id="copy">Copy text</button>
+<label for="remote">Paste the other phone's signaling text</label><textarea id="remote"></textarea>
+<button id="answer" disabled>Create answer (Phone 2)</button><button id="apply" disabled>Apply answer (Phone 1)</button>
+<p>Phone 1 creates an offer → Phone 2 pastes it and creates an answer → Phone 1 pastes the answer. Exchange text through any manual channel; the app has no signaling service.</p>
+<details open><summary>QR pairing — no signaling server</summary>
+<button id="show-qr">Show QR for your signaling text</button><button id="qr-prev">Previous code</button><button id="qr-next">Next code</button><p id="qr-status">Create an offer or answer first. Scan every numbered code.</p><canvas id="qr-canvas" hidden></canvas>
+<button id="scan">Scan other phone</button><button id="scan-stop">Stop camera</button><video id="camera" playsinline muted hidden></video>
+<p>Scanning fills the remote text box. Review it, then press Create answer or Apply answer. Camera denial leaves manual pairing available.</p></details>
+<label for="prompt">UTF-8 prompt</label><textarea id="prompt">Hello</textarea><label>New bytes <input id="count" type="number" min="1" max="512" value="8"></label>
+<button id="generate" disabled>Generate (Phone 1; uses both phones)</button><p id="generation-help">Generation unlocks on Phone 1 only after the direct connection and model handshake. Phone 2 runs automatically as its worker.</p>
+<button id="disconnect">Stop / disconnect</button><button id="diagnostics">Copy connection diagnostics</button><pre id="output"></pre><pre id="bytes"></pre><details><summary>Detailed runtime evidence</summary><pre id="metrics"></pre></details>
+<script type="module">
+import { DemoSession } from './assets/9f5153c5b7effc98/demo/session.js';
+import { setupReadiness } from './assets/9f5153c5b7effc98/demo/readiness.js';
+const readiness=setupReadiness(()=>window.session);
+import { setupDashboard } from './assets/9f5153c5b7effc98/demo/dashboard.js';
+const dashboard=setupDashboard(()=>window.session);
+const $=id=>document.getElementById(id);let session,output=[],diagnosticSnapshot;
+const status=text=>$('status').textContent=text;
+try{const saved=localStorage.getItem('minimol-role');if(saved==='phone1'||saved==='phone2')$('role').value=saved}catch{}
+async function perform(action){try{await action()}catch(error){status(error.message)}}
+window.createSession=async(role,debug=false,timeout=180000)=>{
+ $('role').value=role;try{localStorage.setItem('minimol-role',role)}catch{}
+ session?.close();dashboard.loading();const current=new DemoSession(role,debug,timeout);session=current;window.session=current;
+ $('lan-ip').disabled=false;$('generate').disabled=true;$('bytes').textContent='';$('output').textContent='';$('metrics').textContent='';output=[];
+ current.onLoading=message=>{if(session===current){status(message);$('d-shard').textContent=message}};
+ current.onClose=reason=>{if(session!==current)return;status(reason+' Use Load selected shard / retry on BOTH devices, then exchange new signaling text.');for(const id of ['offer','answer','apply','generate'])$(id).disabled=true;$('generation-help').textContent='Disconnected — generation requires both phones. Retry pairing.'};
+ current.onByte=byte=>{if(session!==current)return;output.push(byte);dashboard.byte();$('output').textContent=new TextDecoder().decode(Uint8Array.from(output));$('bytes').textContent='Generated byte IDs: '+JSON.stringify(output)};
+ const model=await current.modelReady;if(session!==current)return model;status(`${role}: shard verified; ${model.backend}. Ready to exchange signaling text.`);dashboard.loaded(role,model);readiness.loaded(model);
+ current.ready().then(()=>{if(session!==current)return;status('CONNECTED — model handshake verified; direct host path confirmed');$('link-state').textContent='ICE connected · Channel open · Model handshake verified';$('generate').disabled=role!=='phone1';$('generation-help').textContent=role==='phone1'?'Ready. Tap Generate here: both phones will execute their assigned layers.':'Worker ready. Tap Generate on Phone 1; this phone automatically executes layers 3–5.'}).catch(()=>{});
+ return model;
+};
+$('load').onclick=()=>perform(async()=>{const role=$('role').value;$('load').disabled=true;$('role').disabled=true;for(const id of ['offer','answer','apply','generate'])$(id).disabled=true;status('Loading and verifying '+role+' shard. Keep this page open.');try{await window.createSession(role);$('offer').disabled=role!=='phone1';$('answer').disabled=role!=='phone2';$('apply').disabled=role!=='phone1';$('local').value='';$('remote').value=''}finally{$('load').disabled=false;$('role').disabled=false}});
+$('offer').onclick=()=>perform(async()=>{$('local').value=await session.pairing.offer($('lan-ip').value);$('offer').disabled=true;$('lan-ip').disabled=true;status('Offer created. Waiting for its answer — no manual-copy countdown. Keep this original tab open.')});
+$('answer').onclick=()=>perform(async()=>{$('local').value=await session.pairing.answer($('remote').value,$('lan-ip').value);$('answer').disabled=true;$('lan-ip').disabled=true;status('Answer created. Copy ALL of this answer to the original Phone 1 tab. Keep this page open.')});
+$('apply').onclick=()=>perform(async()=>{await session.pairing.applyAnswer($('remote').value);$('apply').disabled=true;if(!session.isReady){status('Answer applied. Connecting directly over the local network…');$('generation-help').textContent='Waiting for a real direct connection and model handshake. Both browsers must stay open; check connection diagnostics above if this stalls.'}});
+$('copy').onclick=()=>perform(async()=>{try{await navigator.clipboard.writeText($('local').value)}catch{$('local').focus();$('local').select();status('Select and copy the signaling text manually')}});
+window.resetGenerationView=()=>{output=[];$('output').textContent='';$('bytes').textContent='';dashboard.start()};
+window.finishGenerationView=()=>dashboard.finish();
+$('generate').onclick=()=>perform(async()=>{const current=session;dashboard.start();$('generate').disabled=true;output=[];$('output').textContent='';$('bytes').textContent='';try{await current.generate($('prompt').value,Number($('count').value));if(session===current)$('metrics').textContent=JSON.stringify(await current.call('stats'),null,2)}finally{dashboard.finish();if(session===current)$('generate').disabled=!current.isReady||current.role!=='phone1'}});
+$('disconnect').onclick=()=>session?.close();
+$('diagnostics').onclick=()=>perform(async()=>{const text=JSON.stringify({build:$('build').textContent,browser:navigator.userAgent,visibility:document.visibilityState,modelReady:session?.isReady,connection:session?await session.pairing.diagnostics():null},null,2);$('metrics').textContent=text;try{await navigator.clipboard.writeText(text)}catch{status('Diagnostics are displayed below. Select and copy them manually.')}});
+setInterval(async()=>{const current=session;if(!current)return;diagnosticSnapshot=await current.pairing.diagnostics();if(session===current){$('connection').textContent=JSON.stringify({modelHandshake:current.isReady?'verified':'waiting',...diagnosticSnapshot},null,2);$('link-state').textContent=`ICE: ${diagnosticSnapshot.ice} · Channel: ${diagnosticSnapshot.channel} · Model handshake: ${current.isReady?'verified':'waiting'}`}},2000);
+const hintAbort=new AbortController();const hintTimer=setTimeout(()=>hintAbort.abort(),3000);
+fetch('./network-info',{cache:'no-store',signal:hintAbort.signal}).then(async response=>{if(!response.ok)throw new Error('No address hint');const info=await response.json();if(!info.clientIPv4)throw new Error('No private Wi-Fi address');if(!$('lan-ip').value&&!$('lan-ip').disabled)$('lan-ip').value=info.clientIPv4;$('ip-help').textContent='Suggested by your local HTTPS host: '+info.clientIPv4+'. Verify it matches THIS phone’s Wi-Fi settings.'}).catch(()=>{$('ip-help').textContent='Enter this phone’s Wi-Fi IP manually to avoid .local lookup. Automatic address hints require the updated scripts/serve-demo.py; static hosting still works.'}).finally(()=>clearTimeout(hintTimer));
+</script></html>

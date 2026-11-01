@@ -1,0 +1,62 @@
+{
+  "fresh_process_byte_identical": {
+    "canonical/weights.bin": true,
+    "canonical/manifest.json": true,
+    "public/phone1.bin": true,
+    "public/phone2.bin": true,
+    "public/manifest.json": true,
+    "golden.json": true
+  },
+  "split_reference_cases": [
+    {
+      "case": "ascii_hello",
+      "positions": 5,
+      "max_abs_activation_error": 0.0,
+      "max_abs_logit_error": 0.0,
+      "all_greedy_ids_equal": true
+    },
+    {
+      "case": "utf8_hindi_emoji",
+      "positions": 23,
+      "max_abs_activation_error": 0.0,
+      "max_abs_logit_error": 0.0,
+      "all_greedy_ids_equal": true
+    },
+    {
+      "case": "utf8_accent",
+      "positions": 5,
+      "max_abs_activation_error": 0.0,
+      "max_abs_logit_error": 0.0,
+      "all_greedy_ids_equal": true
+    },
+    {
+      "case": "byte_extremes",
+      "positions": 6,
+      "max_abs_activation_error": 0.0,
+      "max_abs_logit_error": 0.0,
+      "all_greedy_ids_equal": true
+    },
+    {
+      "case": "single_zero",
+      "positions": 1,
+      "max_abs_activation_error": 0.0,
+      "max_abs_logit_error": 0.0,
+      "all_greedy_ids_equal": true
+    },
+    {
+      "case": "single_ff",
+      "positions": 1,
+      "max_abs_activation_error": 0.0,
+      "max_abs_logit_error": 0.0,
+      "all_greedy_ids_equal": true
+    },
+    {
+      "case": "maximum_context",
+      "positions": 512,
+      "max_abs_activation_error": 0.0,
+      "max_abs_logit_error": 0.0,
+      "all_greedy_ids_equal": true
+    }
+  ],
+  "physical_devices_tested": false
+}
