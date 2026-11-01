@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+ml/artifacts/
+
+# Node
+node_modules/
+web/dist/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Locks (commit package-lock.json for reproducibility)
+# web/package-lock.json  <- we DO commit this
