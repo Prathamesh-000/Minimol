@@ -58,3 +58,8 @@ test('exclusive loader safely falls back to a snapshot when transfer API is unav
  const {consumeShard}=await import('../../dist/inference/weightLoader.js');const bytes=await roleBytes('phone2');const original=globalThis.structuredClone;
  try{globalThis.structuredClone=undefined;const shard=await consumeShard('phone2',manifest,bytes);assert.equal(shard.hash,manifest.files.phone2.sha256);assert.equal(bytes.byteLength,21689856)}finally{globalThis.structuredClone=original}
 });
+test('manifest snapshots retain canonical offsets without invoking untrusted serialization methods',()=>{
+ const candidate=structuredClone(manifest);let called=false;candidate.toJSON=()=>{called=true;throw new Error('untrusted hook')};
+ const snapshot=validateManifest(candidate);candidate.tensors[0].offset_bytes=4;
+ assert.equal(called,false);assert.equal(snapshot.tensors[0].offset_bytes,0);assert.equal(snapshot.model_config.hidden_dim,384);
+});

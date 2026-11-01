@@ -1,5 +1,8 @@
 # miniMol engineering reports
 
+Latest: [M8 mobile reliability](MILESTONE_8_REPORT.md). Physical-device
+compatibility remains NOT TESTED pending actual phone evidence.
+
 Latest: [M7 release engineering](MILESTONE_7_REPORT.md), with clean staging,
 model/build reproducibility, release checksums and unchanged physical NOT TESTED status.
 

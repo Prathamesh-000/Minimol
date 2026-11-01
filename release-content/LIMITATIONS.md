@@ -19,3 +19,9 @@
 - Exact weight reproducibility is checked on the pinned environment; Python and
   machine descriptive metadata may differ. Cross-platform floating math uses the
   original tolerances and exact greedy-ID agreement, not a universal bitwise promise.
+
+M8: active pairs are discarded on hidden/freeze/pagehide or stale execution gaps.
+Pending manual offers survive copying, but both pages must be foregrounded when
+the channel opens. No background execution or automatic KV continuation is promised.
+See docs/MOBILE_COMPATIBILITY.md. Prior releases are retained in release-archives/
+outside the web root. Reported memory is partial; browser GC/RSS is not guaranteed.

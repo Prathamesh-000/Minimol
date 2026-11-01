@@ -8,11 +8,14 @@ export class DemoSession {
   readonly pairing: PeerPairing;
   readonly worker: Worker;
   #id = 0;
+  #workerMessageError = () => this.close('Worker message could not be decoded. Retry both roles and pair again.');
   #pending = new Map<number, { resolve: (v: any) => void; reject: (e: Error) => void; timer: ReturnType<typeof setTimeout> }>();
   #sender?: BoundedSender;
   #closed = false;
   #isReady = false;
   #generating = false;
+  #everPaired = false;
+  get wasPaired(): boolean { return this.#everPaired; }
   #detachLifecycle?: () => void;
   #unsubscribe?: () => void;
   readonly lifecycle = new LifecycleGuard(() => !this.#closed && (this.#isReady || this.#generating || this.pairing?.dataChannel?.readyState === 'open'), reason => this.close(reason));
@@ -50,9 +53,9 @@ export class DemoSession {
       else if (data.kind === 'byte') this.onByte?.(data.byte);
     };
     this.worker.onerror = event => this.close((event.message || 'Inference Worker failed; possible memory pressure') + '. Load / retry both phones and pair again.');
-    this.worker.onmessageerror = () => this.close('Worker message could not be decoded. Retry both roles and pair again.');
+    this.worker.addEventListener('messageerror', this.#workerMessageError);
     this.modelReady = this.call('load', { modelBase: new URL('model/', location.href).href, wasmBase: new URL('wasm/', location.href).href }).then(info => { this.modelInfo = info; return info; });
-    void this.modelReady.catch(() => {});
+    void this.modelReady.catch(error => this.close('Model load failed: ' + error.message + '. Retry loading the selected role.'));
     // Start automatically on both sides, including Phone 2 after displaying its answer.
     this.#ready = this.pairing.connected.then(async transport => {
       await this.modelReady;
@@ -60,11 +63,11 @@ export class DemoSession {
       this.lifecycle.reset(); // Manual signaling time is not an execution stall.
       this.#sender = new BoundedSender(transport, 15000);
       const ready = this.call('attach', { debug });
-      this.#unsubscribe = transport.subscribe({ message: frame => { this.#lastIncoming = performance.now(); const buffer = frame as ArrayBuffer; this.worker.postMessage({ kind: 'wire', frame: buffer }, [buffer]); },
+      this.#unsubscribe = transport.subscribe({ message: frame => { if (this.#closed || !this.lifecycle.check()) return; if (document.hidden) { this.lifecycle.transition('hidden'); return; } this.#lastIncoming = performance.now(); const buffer = frame as ArrayBuffer; this.worker.postMessage({ kind: 'wire', frame: buffer }, [buffer]); },
         writable: () => this.#sender?.flush(), close: reason => this.close(reason) });
       const verified = await ready;
       if (this.#closed) throw new Error('Session closed during handshake');
-      this.#isReady = true; this.lifecycle.reset();
+      this.#isReady = true; this.#everPaired = true; this.lifecycle.reset();
       if (document.hidden) { this.lifecycle.transition('hidden'); throw new Error('Connection opened in a hidden page; foreground both browsers and pair again'); }
       this.#lastIncoming = performance.now();
       this.#heartbeat = setInterval(() => {
@@ -96,7 +99,7 @@ export class DemoSession {
   }
   close(reason = 'Disconnected. Retry with a fresh offer and answer.'): void {
     if (this.#closed) return;
-    this.#closed = true; this.#isReady = false; this.#generating = false; clearInterval(this.#heartbeat); this.#heartbeat = undefined; clearInterval(this.#watchdog); this.#watchdog = undefined; this.#detachLifecycle?.(); this.#detachLifecycle = undefined; this.#unsubscribe?.(); this.#unsubscribe = undefined; this.#sender?.close(new Error(reason)); this.pairing.close(reason); this.worker.terminate(); this.worker.onmessage = null; this.worker.onerror = null; this.worker.onmessageerror = null;
+    this.#closed = true; this.#isReady = false; this.#generating = false; clearInterval(this.#heartbeat); this.#heartbeat = undefined; clearInterval(this.#watchdog); this.#watchdog = undefined; this.#detachLifecycle?.(); this.#detachLifecycle = undefined; this.#unsubscribe?.(); this.#unsubscribe = undefined; this.#sender?.close(new Error(reason)); this.pairing.close(reason); this.worker.terminate(); this.worker.onmessage = null; this.worker.onerror = null; this.worker.removeEventListener('messageerror', this.#workerMessageError);
     for (const pending of this.#pending.values()) { clearTimeout(pending.timer); pending.reject(new Error(reason)); }
     this.#pending.clear(); this.onClose?.(reason);
   }

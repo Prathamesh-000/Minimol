@@ -5,6 +5,7 @@ export class WebRTCTransport {
     #events;
     #early = [];
     #closed = false;
+    #drainPoll;
     #reason = 'DataChannel closed';
     constructor(channel) {
         this.channel = channel;
@@ -43,6 +44,19 @@ export class WebRTCTransport {
         if (!(frame instanceof ArrayBuffer) || frame.byteLength < 40 || frame.byteLength > MAX_FRAME_BYTES)
             throw new Error('Invalid binary frame');
         this.channel.send(frame);
+        if (!this.#drainPoll && this.channel.bufferedAmount > this.channel.bufferedAmountLowThreshold) {
+            this.#drainPoll = setInterval(() => {
+                if (this.readyState !== 'open') {
+                    this.close('DataChannel no longer open');
+                    return;
+                }
+                if (this.channel.bufferedAmount <= this.channel.bufferedAmountLowThreshold) {
+                    clearInterval(this.#drainPoll);
+                    this.#drainPoll = undefined;
+                    this.onWritable();
+                }
+            }, 100);
+        }
     }
     subscribe(events) {
         if (this.#events)
@@ -69,11 +83,15 @@ export class WebRTCTransport {
         this.#closed = true;
         this.#reason = reason;
         this.#early = [];
+        clearInterval(this.#drainPoll);
+        this.#drainPoll = undefined;
         this.channel.removeEventListener('message', this.onMessage);
         this.channel.removeEventListener('close', this.onClose);
         this.channel.removeEventListener('error', this.onError);
         this.channel.removeEventListener('bufferedamountlow', this.onWritable);
+        const events = this.#events;
+        this.#events = undefined;
         this.channel.close();
-        this.#events?.close(reason);
+        events?.close(reason);
     }
 }

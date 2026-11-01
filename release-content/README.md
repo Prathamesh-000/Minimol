@@ -58,3 +58,13 @@ RELEASE_MANIFEST.json records every package file except itself/checksum list;
 RELEASE_CHECKSUMS.txt also hashes the manifest, excluding only its own self-hash.
 This is corruption detection, not signed publisher authentication. Use the source
 `npm run release:verify` to check integrity and model/runtime requirements.
+
+## M8 mobile reliability
+
+Read docs/MOBILE_COMPATIBILITY.md. Keep both pages foregrounded during the active
+pair; a hidden/frozen/stale session is discarded and requires fresh pairing on both
+phones. Manual offers can wait while copying, but return both pages before applying
+the answer. Diagnostics expose capabilities, actual backend, measured load/prefill,
+partial memory and recovery state. Run `npm run test:mobile` for desktop synthetic
+lifecycle/Worker recovery tests. Actual phone checks remain NOT TESTED. Release
+builds retain verified rollback copies under release-archives/.

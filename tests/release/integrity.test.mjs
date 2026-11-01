@@ -15,3 +15,7 @@ test('verification never executes modified package JavaScript',async()=>{
  await changed(async root=>{const m=JSON.parse(await readFile(join(root,'RELEASE_MANIFEST.json'))),p=join(root,`demo/assets/${m.buildId}/inference/modelManifest.js`);await writeFile(p,'globalThis.__minimolUntrustedExecuted = true;\n'+await readFile(p,'utf8'))});
  assert.equal(globalThis.__minimolUntrustedExecuted,undefined);
 });
+test('verified previous releases can be archived idempotently without overwriting changed backups',async()=>{
+ const {archiveRelease}=await import('../../scripts/archive-release.mjs');const root=await mkdtemp(join(tmpdir(),'minimol-archive-test-'));
+ try{const target=await archiveRelease(root,source);assert.equal(await archiveRelease(root,source),target);await verifyRelease(target);await writeFile(join(target,'user-note.txt'),'preserve');await assert.rejects(archiveRelease(root,source));await verifyRelease(source)}finally{await rm(root,{recursive:true,force:true})}
+});

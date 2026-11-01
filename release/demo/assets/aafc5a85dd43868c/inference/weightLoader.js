@@ -5,13 +5,30 @@ export function requireVerifiedShard(shard, role) {
     if (!verified.has(shard) || shard.role !== role)
         throw new Error(`A verified ${role} shard is required`);
 }
-export async function decodeShard(role, manifestValue, buffer) {
+function checkBuffer(role, buffer) {
     assertRole(role);
-    const manifest = validateManifest(manifestValue);
     if (!(buffer instanceof ArrayBuffer) || buffer.byteLength !== ROLE_COUNTS[role] * 4)
         throw new Error(`Wrong ${role} shard size`);
-    // Own the bytes: callers cannot modify them while Web Crypto hashes asynchronously.
-    const owned = buffer.slice(0);
+}
+/** Defensive API for callers that retain aliases: preserve its original snapshot semantics. */
+export async function decodeShard(role, manifestValue, buffer) {
+    checkBuffer(role, buffer);
+    return verifyOwned(role, manifestValue, buffer.slice(0));
+}
+/** Only for exclusive buffers from fetch/cache: transfer ownership before hashing. */
+export async function consumeShard(role, manifestValue, buffer) {
+    checkBuffer(role, buffer);
+    let owned;
+    try {
+        owned = structuredClone(buffer, { transfer: [buffer] });
+    }
+    catch {
+        owned = buffer.slice(0);
+    } // Older browsers keep the safe copy fallback.
+    return verifyOwned(role, manifestValue, owned);
+}
+async function verifyOwned(role, manifestValue, owned) {
+    const manifest = validateManifest(manifestValue);
     const digest = await crypto.subtle.digest('SHA-256', owned);
     const hash = Array.from(new Uint8Array(digest), b => b.toString(16).padStart(2, '0')).join('');
     if (hash !== manifest.files[role].sha256)

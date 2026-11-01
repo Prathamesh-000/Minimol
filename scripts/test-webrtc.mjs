@@ -19,6 +19,7 @@ try{
  const contexts=[await browser.newContext(),await browser.newContext()],roleRequests=[[],[]];
  contexts.forEach((context,i)=>context.on('request',request=>{const p=new URL(request.url()).pathname;if(p.endsWith('.bin'))roleRequests[i].push(p)}));
  const pages=await Promise.all(contexts.map(c=>c.newPage()));
+ for(const page of pages)page.on('requestfailed',r=>console.error('Browser request failed:',new URL(r.url()).pathname,r.failure()?.errorText));
  for(const page of pages)await page.goto(`http://127.0.0.1:${server.address().port}/index.html`);
  async function pair(){
   await Promise.all(pages.map((p,i)=>p.evaluate(role=>window.createSession(role,true),`phone${i+1}`)));

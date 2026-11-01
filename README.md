@@ -1,5 +1,9 @@
 # miniMol
 
+Latest: [M8 mobile reliability](MILESTONE_8_REPORT.md) and
+[mobile compatibility/recovery](docs/MOBILE_COMPATIBILITY.md). Active sessions
+require both pages foregrounded; prior releases are archived for recovery.
+
 Latest: [M7 release audit and exact results](MILESTONE_7_REPORT.md). Generate with
 `npm run release:build`; verify with `npm run release:verify`. The judge package
 is [release/README.md](release/README.md); all six deferred physical checks remain

@@ -8,5 +8,5 @@ export function capabilities() {
     webRTC:typeof RTCPeerConnection === 'function',wasmApi:typeof WebAssembly === 'object',simd:'confirmed only by successful SIMD backend instantiation',
     transferableArrayBuffer:transfer,sharedArrayBufferRequired:false,cacheStorage:typeof caches !== 'undefined',serviceWorker,
     indexedDBApi:typeof indexedDB !== 'undefined',indexedDBRequired:false,cameraApi:!!navigator.mediaDevices?.getUserMedia,
-    visibility:'visibilityState' in document};
+    visibility:'visibilityState' in document,wasDiscarded:'wasDiscarded' in document?(document as any).wasDiscarded:null};
 }

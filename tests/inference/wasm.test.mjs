@@ -68,3 +68,10 @@ test('unsupported SIMD and missing kernels fall back explicitly to scalar implem
   const fallback = await selectBackend('phone2', 'auto', 'https://local.test/wasm/', async () => new Response('', { status: 404 }));
   assert.equal(fallback.backend.name, 'typescript-scalar'); assert.equal(fallback.fallbackReasons.length, 2);
 });
+test('WASM allocation failure falls back to real TypeScript with explicit reasons',async()=>{
+ const original=WebAssembly.Memory.prototype.grow;
+ try{WebAssembly.Memory.prototype.grow=function(){throw new RangeError('injected allocation failure')};
+ const selected=await selectBackend('phone1','auto','https://local.test/wasm/',async url=>new Response(await bytesFor(String(url).includes('simd')?'simd':'scalar')));
+ assert.equal(selected.backend.name,'typescript-scalar');assert.equal(selected.fallbackReasons.length,2);assert.ok(selected.fallbackReasons.every(r=>r.includes('allocation failure')));
+ }finally{WebAssembly.Memory.prototype.grow=original}
+});

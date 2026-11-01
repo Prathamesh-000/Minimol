@@ -64,9 +64,13 @@ try{
 
 
  for(const p of pages)await p.evaluate(()=>session.close());
+ await pages[0].evaluate(()=>window.createSession('phone1')); // Camera fallback must test a valid loaded role.
  await pages[0].locator('#scan').click();await pages[0].waitForFunction(()=>document.getElementById('qr-status').textContent.includes('Camera unavailable'));
  assert.equal(await pages[0].locator('#remote').isEditable(),true);report.tests.push('camera unavailable/denied leaves manual signaling text editable');
  // Disable ALL browser HTTP networking, reload and load each role from verified storage.
+ await Promise.all(pages.map(p=>p.waitForLoadState('networkidle')));
+ const offlinePort=server.address().port;
+ await new Promise(resolve=>server.close(resolve)); // Include browser-internal SW update checks: host is truly unavailable.
  const offlineRequestCount=requests.length;
  for(let i=0;i<2;i++){
   await contexts[i].setOffline(true);await pages[i].reload();assert.equal(await pages[i].locator('#role').inputValue(),`phone${i+1}`);await pages[i].evaluate(r=>window.createSession(r),`phone${i+1}`);
@@ -80,16 +84,17 @@ try{
  }
  const offer=await pages[0].evaluate(()=>session.pairing.offer());const answer=await pages[1].evaluate(o=>session.pairing.answer(o),offer);await pages[0].evaluate(a=>session.pairing.applyAnswer(a),answer);await Promise.all(pages.map(p=>p.evaluate(()=>session.ready())));
  assert.deepEqual(await pages[0].evaluate(async()=>[...(await session.generate('Hello',8)).generated]),[63,119,179,184,253,37,243,172]);
- assert.equal(requests.length,offlineRequestCount,'No HTTP request should reach the asset server during offline/cached reload and generation');
+ assert.equal(requests.length,offlineRequestCount,'No HTTP request should reach the asset server during offline/cached reload and generation: '+JSON.stringify(requests.slice(offlineRequestCount)));
  report.tests.push('cached cold loads + real direct generation while every HTTP request is aborted (local ICE remains available)');
  // Corrupt cached bytes offline: must reject, never declare cached readiness.
  await pages[0].evaluate(async()=>{session.close();const name=(await caches.keys()).find(k=>k.startsWith('minimol-shard-'));const c=await caches.open(name);const [key]=await c.keys();await c.put(key,new Response(new Uint8Array(50)))});
  await assert.rejects(pages[0].evaluate(()=>window.createSession('phone1')));
  assert.equal(await pages[0].evaluate(async()=>{const c=await caches.open((await caches.keys()).find(k=>k.startsWith('minimol-shard-')));return (await c.keys()).length}),0);
  report.tests.push('corrupted cached shard rejected and removed; offline network fallback fails honestly');
+ await new Promise(resolve=>server.listen(offlinePort,'127.0.0.1',resolve));
  await contexts[0].unroute('**/*');await pages[0].evaluate(()=>window.createSession('phone1'));report.tests.push('online retry repairs missing/corrupt shard');
  const extra=await browser.newContext(),p=await extra.newPage();await p.goto(url);cut=true;
- await assert.rejects(p.evaluate(()=>window.createSession('phone1')));
+ await assert.rejects(p.evaluate(()=>window.createSession('phone1')));assert.equal(await p.evaluate(()=>session.resourceState.pendingCommands),0);assert.equal(await p.evaluate(()=>session.resourceState.closed),true);
  assert.equal(await p.evaluate(async()=>{const c=await caches.open((await caches.keys()).find(k=>k.startsWith('minimol-shard-')));return (await c.keys()).length}),0);
  cut=false;await p.evaluate(()=>window.createSession('phone1'));report.tests.push('truncated download never committed; retry downloads and verifies successfully');
  await p.evaluate(async()=>{session.close();for(const name of await caches.keys())await caches.delete(name)});

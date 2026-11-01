@@ -2,6 +2,9 @@
   "physicalPhonesTested": false,
   "scope": "Desktop Chrome with synthetic visibility/timer transitions and actual Worker termination/WebRTC. NOT screen-lock or mobile evidence.",
   "tests": [
+    "Phone 2 empty answer gives scan instructions; desktop fake camera opens without local answer and Stop releases track",
+    "camera denial explains browser permission recovery and preserves editable manual signaling",
+    "synthetic delayed camera rejection after Stop is ignored without disturbing current UI",
     "pending manual offer survives synthetic background/foreground; canonical pair works without SharedArrayBuffer/COOP",
     "active background cancels actual incremental inference, blocks duplicate generation and cleans Worker/timers/listeners/pending RPCs",
     "fresh pairing after lifecycle cancellation restores canonical generation",
@@ -11,7 +14,9 @@
     "synthetic freeze invalidates active session instead of pretending background execution",
     "three repeated role load/unload cycles reuse verified cache and release session resources (GC/RSS not asserted)",
     "invalid actual binary DataChannel frame fails closed with visible error",
-    "final reconnection, golden KV progression and measured load/WASM memory diagnostics"
+    "final reconnection, golden KV progression and measured load/WASM memory diagnostics",
+    "synthetic Worker message-error event invalidates the session and requires a fresh pair",
+    "failed Worker postMessage serialization rejects and clears pending RPCs safely"
   ],
   "browser": "156.0.8078.74",
   "finalResources": [

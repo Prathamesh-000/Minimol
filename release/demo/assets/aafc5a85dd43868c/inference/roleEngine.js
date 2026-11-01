@@ -31,7 +31,7 @@ export class RoleEngine {
     get position() { return this.#position; }
     get stats() {
         return { role: this.role, backend: this.backend.name, position: this.#position, layerIds: [...this.layerIds],
-            layerEvaluations: this.#layerEvaluations, kvBytes: this.#cache.byteLength,
+            layerEvaluations: this.#layerEvaluations, kvBytes: this.#cache.byteLength, wasmMemoryBytes: this.backend.wasmMemoryBytes ?? 0,
             cacheLengths: this.#cache.layers.map(layer => layer.length), failed: this.#failed, disposed: this.#disposed };
     }
     validatePosition(position) {

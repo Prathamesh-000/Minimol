@@ -1,6 +1,6 @@
 import { assertRole } from '../inference/modelConfig.js';
 import { validateManifest } from '../inference/modelManifest.js';
-import { decodeShard } from '../inference/weightLoader.js';
+import { consumeShard } from '../inference/weightLoader.js';
 /** Cache only complete, verified role bytes. A failed cache write never blocks online inference. */
 export async function loadCachedShard(role, base, progress) {
     assertRole(role);
@@ -21,7 +21,7 @@ export async function loadCachedShard(role, base, progress) {
         if (cached) {
             progress('Verifying cached shard SHA-256…');
             try {
-                return { shard: await decodeShard(role, manifest, await cached.arrayBuffer()), manifest, cached: true, cacheWarning };
+                return { shard: await consumeShard(role, manifest, await cached.arrayBuffer()), manifest, cached: true, cacheWarning };
             }
             catch {
                 await cache.delete(url);
@@ -38,11 +38,19 @@ export async function loadCachedShard(role, base, progress) {
         throw new Error(`Shard download failed (${weights.status}); retry loading`);
     const bytes = await weights.arrayBuffer();
     progress('Download complete; verifying SHA-256…');
-    const shard = await decodeShard(role, manifest, bytes);
-    let cached = false;
+    let snapshot;
     if (cache)
         try {
-            await cache.put(url, new Response(bytes));
+            snapshot = new Response(bytes);
+        }
+        catch {
+            cacheWarning = 'Cache snapshot unavailable; online-only until retry succeeds';
+        }
+    const shard = await consumeShard(role, manifest, bytes);
+    let cached = false;
+    if (cache && snapshot)
+        try {
+            await cache.put(url, snapshot);
             cached = true;
         }
         catch {

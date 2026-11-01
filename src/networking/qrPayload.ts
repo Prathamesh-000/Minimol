@@ -4,7 +4,9 @@ async function digest(value: string) {
   return [...new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(value)))].map(b => b.toString(16).padStart(2, '0')).join('');
 }
 export async function makeQrFrames(signal: string, now = Date.now()): Promise<string[]> {
-  const type = JSON.parse(signal).type; if (type !== 'offer' && type !== 'answer') throw new Error('Invalid signaling type'); parseSignal(signal, type);
+  if (!signal.trim()) throw new Error('Create an offer or answer before showing QR codes');
+  let parsed: any; try { parsed = JSON.parse(signal); } catch { throw new Error('Incomplete signaling text; create a fresh offer or answer'); }
+  const type = parsed?.type; if (type !== 'offer' && type !== 'answer') throw new Error('Invalid signaling type'); parseSignal(signal, type);
   const id = await digest(signal), total = Math.ceil(signal.length / 320);
   if (total > LIMIT) throw new Error('Signaling too large for QR; use manual text');
   return Array.from({ length: total }, (_, index) => JSON.stringify({ qr: 'miniMol', version: 1, id, type, created: now, total, index, data: signal.slice(index * 320, (index + 1) * 320) }));

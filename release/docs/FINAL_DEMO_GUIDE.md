@@ -92,3 +92,13 @@ KV state; retry both roles with a new offer/answer, never reuse an old answer.
   both roles if closed. Visibility events cannot identify screen lock versus tab switch.
 - Update cached code: reconnect server, prepare/check shell, close ALL miniMol tabs,
   then reopen. Updates deliberately wait instead of replacing an active session.
+
+## M8 lifecycle policy
+
+Read MOBILE_COMPATIBILITY.md before device testing. Active pairs now close when
+hidden, frozen or leaving the page, and on stale execution gaps. Pending manual
+offers survive copy/paste waits, but both browser pages must be foregrounded when
+the channel opens. QR is convenient for keeping both screens visible. After lock,
+app switch, Worker loss or connection failure, Load / retry BOTH roles and pair
+freshly; Stop/disconnect is cancellation. Background execution is never promised.
+The release packager retains a verified rollback copy in release-archives/.

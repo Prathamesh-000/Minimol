@@ -12,7 +12,7 @@
           "maxAbsActivationError": 0.0000016689300537109375,
           "maxAbsLogitError": 0.0000016093254089355469,
           "generatedBytesMatch": true,
-          "mainThreadHeartbeatTicks": 37
+          "mainThreadHeartbeatTicks": 29
         },
         {
           "case": "utf8_hindi_emoji",
@@ -20,7 +20,7 @@
           "maxAbsActivationError": 0.0000016689300537109375,
           "maxAbsLogitError": 0.0000016689300537109375,
           "generatedBytesMatch": true,
-          "mainThreadHeartbeatTicks": 97
+          "mainThreadHeartbeatTicks": 66
         },
         {
           "case": "utf8_accent",
@@ -28,7 +28,7 @@
           "maxAbsActivationError": 0.0000018477439880371094,
           "maxAbsLogitError": 0.0000014901161193847656,
           "generatedBytesMatch": true,
-          "mainThreadHeartbeatTicks": 30
+          "mainThreadHeartbeatTicks": 25
         },
         {
           "case": "byte_extremes",
@@ -36,7 +36,7 @@
           "maxAbsActivationError": 0.0000016689300537109375,
           "maxAbsLogitError": 0.0000012516975402832031,
           "generatedBytesMatch": true,
-          "mainThreadHeartbeatTicks": 31
+          "mainThreadHeartbeatTicks": 29
         },
         {
           "case": "single_zero",
@@ -52,7 +52,7 @@
           "maxAbsActivationError": 7.152557373046875e-7,
           "maxAbsLogitError": 7.152557373046875e-7,
           "generatedBytesMatch": true,
-          "mainThreadHeartbeatTicks": 19
+          "mainThreadHeartbeatTicks": 17
         },
         {
           "case": "maximum_context",
@@ -60,7 +60,7 @@
           "maxAbsActivationError": 0.0000016689300537109375,
           "maxAbsLogitError": 0.0000013113021850585938,
           "generatedBytesMatch": true,
-          "mainThreadHeartbeatTicks": 1266
+          "mainThreadHeartbeatTicks": 1164
         }
       ],
       "assetRequests": [
@@ -92,7 +92,7 @@
           "maxAbsActivationError": 0.0000016689300537109375,
           "maxAbsLogitError": 0.0000016093254089355469,
           "generatedBytesMatch": true,
-          "mainThreadHeartbeatTicks": 20
+          "mainThreadHeartbeatTicks": 17
         },
         {
           "case": "utf8_hindi_emoji",
@@ -100,7 +100,7 @@
           "maxAbsActivationError": 0.0000016689300537109375,
           "maxAbsLogitError": 0.0000016689300537109375,
           "generatedBytesMatch": true,
-          "mainThreadHeartbeatTicks": 45
+          "mainThreadHeartbeatTicks": 38
         },
         {
           "case": "utf8_accent",
@@ -108,7 +108,7 @@
           "maxAbsActivationError": 0.0000018477439880371094,
           "maxAbsLogitError": 0.0000014901161193847656,
           "generatedBytesMatch": true,
-          "mainThreadHeartbeatTicks": 17
+          "mainThreadHeartbeatTicks": 14
         },
         {
           "case": "byte_extremes",
@@ -116,7 +116,7 @@
           "maxAbsActivationError": 0.0000016689300537109375,
           "maxAbsLogitError": 0.0000012516975402832031,
           "generatedBytesMatch": true,
-          "mainThreadHeartbeatTicks": 21
+          "mainThreadHeartbeatTicks": 16
         },
         {
           "case": "single_zero",
@@ -124,7 +124,7 @@
           "maxAbsActivationError": 7.152557373046875e-7,
           "maxAbsLogitError": 4.917383193969727e-7,
           "generatedBytesMatch": true,
-          "mainThreadHeartbeatTicks": 13
+          "mainThreadHeartbeatTicks": 10
         },
         {
           "case": "single_ff",
@@ -132,7 +132,7 @@
           "maxAbsActivationError": 7.152557373046875e-7,
           "maxAbsLogitError": 7.152557373046875e-7,
           "generatedBytesMatch": true,
-          "mainThreadHeartbeatTicks": 12
+          "mainThreadHeartbeatTicks": 10
         },
         {
           "case": "maximum_context",
@@ -140,7 +140,7 @@
           "maxAbsActivationError": 0.0000016689300537109375,
           "maxAbsLogitError": 0.0000013113021850585938,
           "generatedBytesMatch": true,
-          "mainThreadHeartbeatTicks": 776
+          "mainThreadHeartbeatTicks": 693
         }
       ],
       "assetRequests": [
@@ -188,7 +188,7 @@
           "maxAbsActivationError": 0.0000018477439880371094,
           "maxAbsLogitError": 0.0000014901161193847656,
           "generatedBytesMatch": true,
-          "mainThreadHeartbeatTicks": 15
+          "mainThreadHeartbeatTicks": 13
         },
         {
           "case": "byte_extremes",
@@ -212,7 +212,7 @@
           "maxAbsActivationError": 7.152557373046875e-7,
           "maxAbsLogitError": 7.152557373046875e-7,
           "generatedBytesMatch": true,
-          "mainThreadHeartbeatTicks": 8
+          "mainThreadHeartbeatTicks": 9
         },
         {
           "case": "maximum_context",
@@ -220,7 +220,7 @@
           "maxAbsActivationError": 0.0000016689300537109375,
           "maxAbsLogitError": 0.0000013113021850585938,
           "generatedBytesMatch": true,
-          "mainThreadHeartbeatTicks": 713
+          "mainThreadHeartbeatTicks": 631
         }
       ],
       "assetRequests": [

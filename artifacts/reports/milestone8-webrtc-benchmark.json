@@ -27,14 +27,14 @@
     ],
     "failed": false,
     "disposed": false,
-    "loadMs": 173.30000001192093,
+    "loadMs": 204.2000000178814,
     "shardBytes": 21689856,
     "hash": "50a4e8ccc29188b78542957d3705669929dc2e4caf2e334a52622f074c2667f2",
     "cached": true,
     "cacheWarning": "",
     "fallbackReasons": []
   },
-  "optionalPageJsHeapBytes": 10693315,
+  "optionalPageJsHeapBytes": 10000237,
   "report": {
     "browser": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
     "platform": "MacIntel",
@@ -59,317 +59,35 @@
     "samples": [
       {
         "scope": "real DataChannel generation on this pair; device classification requires operator evidence",
-        "totalMs": 45.10000002384186,
-        "prefillToFirstByteMs": 18.80000001192093,
+        "totalMs": 36.5,
+        "prefillToFirstByteMs": 15.699999988079071,
         "timings": [
           {
             "position": 0,
-            "elapsedMs": 3.300000011920929,
-            "phone1ComputeMs": 1.100000023841858,
-            "phone2ComputeMs": 1.2000000178813934,
-            "roundTripMs": 1.699999988079071,
-            "exchangeOverheadMs": 0.4999999701976776
-          },
-          {
-            "position": 1,
-            "elapsedMs": 3.199999988079071,
-            "phone1ComputeMs": 1.300000011920929,
-            "phone2ComputeMs": 1.300000011920929,
-            "roundTripMs": 1.899999976158142,
-            "exchangeOverheadMs": 0.5999999642372131
-          },
-          {
-            "position": 2,
-            "elapsedMs": 3.300000011920929,
-            "phone1ComputeMs": 1.199999988079071,
-            "phone2ComputeMs": 1.2999999821186066,
-            "roundTripMs": 2,
-            "exchangeOverheadMs": 0.7000000178813934
-          },
-          {
-            "position": 3,
-            "elapsedMs": 5.5999999940395355,
-            "phone1ComputeMs": 3.199999988079071,
-            "phone2ComputeMs": 1.399999976158142,
-            "roundTripMs": 2.4000000059604645,
-            "exchangeOverheadMs": 1.0000000298023224
-          },
-          {
-            "position": 4,
-            "elapsedMs": 3.4000000059604645,
-            "phone1ComputeMs": 1.5,
-            "phone2ComputeMs": 1.300000011920929,
-            "roundTripMs": 1.9000000059604645,
-            "exchangeOverheadMs": 0.5999999940395355
-          },
-          {
-            "position": 5,
             "elapsedMs": 3.5999999940395355,
-            "phone1ComputeMs": 1.5999999940395355,
-            "phone2ComputeMs": 1.2000000178813934,
-            "roundTripMs": 2,
-            "exchangeOverheadMs": 0.7999999821186066
-          },
-          {
-            "position": 6,
-            "elapsedMs": 3.5999999940395355,
-            "phone1ComputeMs": 1.5,
-            "phone2ComputeMs": 1.300000011920929,
-            "roundTripMs": 2,
-            "exchangeOverheadMs": 0.699999988079071
-          },
-          {
-            "position": 7,
-            "elapsedMs": 4.200000017881393,
-            "phone1ComputeMs": 1.100000023841858,
-            "phone2ComputeMs": 2.0999999940395355,
-            "roundTripMs": 3.0999999940395355,
-            "exchangeOverheadMs": 1
-          },
-          {
-            "position": 8,
-            "elapsedMs": 3.2999999821186066,
-            "phone1ComputeMs": 1.199999988079071,
-            "phone2ComputeMs": 1.2000000178813934,
-            "roundTripMs": 2,
-            "exchangeOverheadMs": 0.7999999821186066
-          },
-          {
-            "position": 9,
-            "elapsedMs": 4,
-            "phone1ComputeMs": 1.300000011920929,
-            "phone2ComputeMs": 2,
-            "roundTripMs": 2.699999988079071,
-            "exchangeOverheadMs": 0.699999988079071
-          },
-          {
-            "position": 10,
-            "elapsedMs": 4,
-            "phone1ComputeMs": 1.4000000059604645,
-            "phone2ComputeMs": 1.300000011920929,
-            "roundTripMs": 2.5999999940395355,
-            "exchangeOverheadMs": 1.2999999821186066
-          },
-          {
-            "position": 11,
-            "elapsedMs": 3.600000023841858,
-            "phone1ComputeMs": 1.300000011920929,
-            "phone2ComputeMs": 1.300000011920929,
-            "roundTripMs": 2.199999988079071,
-            "exchangeOverheadMs": 0.8999999761581421
-          }
-        ],
-        "kv": {
-          "role": "phone1",
-          "backend": "wasm-simd",
-          "position": 12,
-          "layerIds": [
-            0,
-            1,
-            2
-          ],
-          "layerEvaluations": 36,
-          "kvBytes": 4718592,
-          "wasmMemoryBytes": 22609920,
-          "cacheLengths": [
-            12,
-            12,
-            12
-          ],
-          "failed": false,
-          "disposed": false
-        },
-        "generatedBytesPerSecond": 177.38359192396553,
-        "note": "roundTripMs includes remote compute; exchangeOverheadMs includes queues/serialization/scheduling and is NOT one-way network latency"
-      },
-      {
-        "scope": "real DataChannel generation on this pair; device classification requires operator evidence",
-        "totalMs": 47.599999994039536,
-        "prefillToFirstByteMs": 16.900000005960464,
-        "timings": [
-          {
-            "position": 0,
-            "elapsedMs": 4.0999999940395355,
-            "phone1ComputeMs": 1.199999988079071,
-            "phone2ComputeMs": 1.199999988079071,
-            "roundTripMs": 1.699999988079071,
-            "exchangeOverheadMs": 0.5
-          },
-          {
-            "position": 1,
-            "elapsedMs": 3.100000023841858,
-            "phone1ComputeMs": 1.300000011920929,
-            "phone2ComputeMs": 1.2999999821186066,
-            "roundTripMs": 1.800000011920929,
-            "exchangeOverheadMs": 0.5000000298023224
-          },
-          {
-            "position": 2,
-            "elapsedMs": 3.0999999940395355,
-            "phone1ComputeMs": 1.2999999821186066,
-            "phone2ComputeMs": 1.2999999821186066,
-            "roundTripMs": 1.800000011920929,
-            "exchangeOverheadMs": 0.5000000298023224
-          },
-          {
-            "position": 3,
-            "elapsedMs": 3.199999988079071,
-            "phone1ComputeMs": 1.2999999821186066,
-            "phone2ComputeMs": 1.300000011920929,
-            "roundTripMs": 1.9000000059604645,
-            "exchangeOverheadMs": 0.5999999940395355
-          },
-          {
-            "position": 4,
-            "elapsedMs": 3.4000000059604645,
-            "phone1ComputeMs": 1.300000011920929,
-            "phone2ComputeMs": 1.199999988079071,
-            "roundTripMs": 2.0999999940395355,
-            "exchangeOverheadMs": 0.9000000059604645
-          },
-          {
-            "position": 5,
-            "elapsedMs": 3.199999988079071,
-            "phone1ComputeMs": 1.300000011920929,
-            "phone2ComputeMs": 1.2000000178813934,
-            "roundTripMs": 1.899999976158142,
-            "exchangeOverheadMs": 0.6999999582767487
-          },
-          {
-            "position": 6,
-            "elapsedMs": 3,
-            "phone1ComputeMs": 1.2000000178813934,
-            "phone2ComputeMs": 1.2000000178813934,
-            "roundTripMs": 1.7999999821186066,
-            "exchangeOverheadMs": 0.5999999642372131
-          },
-          {
-            "position": 7,
-            "elapsedMs": 3,
-            "phone1ComputeMs": 1.2000000178813934,
-            "phone2ComputeMs": 1.300000011920929,
-            "roundTripMs": 1.7999999821186066,
-            "exchangeOverheadMs": 0.4999999701976776
-          },
-          {
-            "position": 8,
-            "elapsedMs": 4.300000011920929,
-            "phone1ComputeMs": 1.2000000178813934,
-            "phone2ComputeMs": 2.0999999940395355,
-            "roundTripMs": 3.0999999940395355,
-            "exchangeOverheadMs": 1
-          },
-          {
-            "position": 9,
-            "elapsedMs": 9.5,
-            "phone1ComputeMs": 1.5,
-            "phone2ComputeMs": 1.800000011920929,
-            "roundTripMs": 8,
-            "exchangeOverheadMs": 6.199999988079071
-          },
-          {
-            "position": 10,
-            "elapsedMs": 4.0999999940395355,
-            "phone1ComputeMs": 1.5999999940395355,
-            "phone2ComputeMs": 1.5,
-            "roundTripMs": 2.4000000059604645,
-            "exchangeOverheadMs": 0.9000000059604645
-          },
-          {
-            "position": 11,
-            "elapsedMs": 3.5999999940395355,
-            "phone1ComputeMs": 1.300000011920929,
-            "phone2ComputeMs": 1.4000000059604645,
-            "roundTripMs": 2.2999999821186066,
-            "exchangeOverheadMs": 0.8999999761581421
-          }
-        ],
-        "kv": {
-          "role": "phone1",
-          "backend": "wasm-simd",
-          "position": 12,
-          "layerIds": [
-            0,
-            1,
-            2
-          ],
-          "layerEvaluations": 36,
-          "kvBytes": 4718592,
-          "wasmMemoryBytes": 22609920,
-          "cacheLengths": [
-            12,
-            12,
-            12
-          ],
-          "failed": false,
-          "disposed": false
-        },
-        "generatedBytesPerSecond": 168.06722691180164,
-        "note": "roundTripMs includes remote compute; exchangeOverheadMs includes queues/serialization/scheduling and is NOT one-way network latency"
-      },
-      {
-        "scope": "real DataChannel generation on this pair; device classification requires operator evidence",
-        "totalMs": 46.79999998211861,
-        "prefillToFirstByteMs": 19,
-        "timings": [
-          {
-            "position": 0,
-            "elapsedMs": 6.0999999940395355,
-            "phone1ComputeMs": 1.2000000178813934,
-            "phone2ComputeMs": 2.0999999940395355,
-            "roundTripMs": 4.199999988079071,
-            "exchangeOverheadMs": 2.0999999940395355
-          },
-          {
-            "position": 1,
-            "elapsedMs": 3.300000011920929,
-            "phone1ComputeMs": 1.4000000059604645,
-            "phone2ComputeMs": 1.300000011920929,
-            "roundTripMs": 1.9000000059604645,
-            "exchangeOverheadMs": 0.5999999940395355
-          },
-          {
-            "position": 2,
-            "elapsedMs": 3.199999988079071,
             "phone1ComputeMs": 1.0999999940395355,
-            "phone2ComputeMs": 1.399999976158142,
-            "roundTripMs": 2.0999999940395355,
-            "exchangeOverheadMs": 0.7000000178813934
+            "phone2ComputeMs": 1.2000000178813934,
+            "roundTripMs": 1.7999999821186066,
+            "exchangeOverheadMs": 0.5999999642372131
           },
           {
-            "position": 3,
-            "elapsedMs": 3.199999988079071,
-            "phone1ComputeMs": 1.199999988079071,
-            "phone2ComputeMs": 1.300000011920929,
-            "roundTripMs": 2,
-            "exchangeOverheadMs": 0.699999988079071
-          },
-          {
-            "position": 4,
+            "position": 1,
             "elapsedMs": 3.2000000178813934,
-            "phone1ComputeMs": 1.300000011920929,
+            "phone1ComputeMs": 1.2000000178813934,
+            "phone2ComputeMs": 1.0999999940395355,
+            "roundTripMs": 2,
+            "exchangeOverheadMs": 0.9000000059604645
+          },
+          {
+            "position": 2,
+            "elapsedMs": 3.0999999940395355,
+            "phone1ComputeMs": 1.199999988079071,
             "phone2ComputeMs": 1.199999988079071,
             "roundTripMs": 1.9000000059604645,
             "exchangeOverheadMs": 0.7000000178813934
           },
           {
-            "position": 5,
-            "elapsedMs": 3.4000000059604645,
-            "phone1ComputeMs": 1.2999999821186066,
-            "phone2ComputeMs": 1.300000011920929,
-            "roundTripMs": 2.100000023841858,
-            "exchangeOverheadMs": 0.800000011920929
-          },
-          {
-            "position": 6,
-            "elapsedMs": 3.0999999940395355,
-            "phone1ComputeMs": 1.2999999821186066,
-            "phone2ComputeMs": 1.2999999821186066,
-            "roundTripMs": 1.800000011920929,
-            "exchangeOverheadMs": 0.5000000298023224
-          },
-          {
-            "position": 7,
+            "position": 3,
             "elapsedMs": 2.9000000059604645,
             "phone1ComputeMs": 1.0999999940395355,
             "phone2ComputeMs": 1.199999988079071,
@@ -377,161 +95,68 @@
             "exchangeOverheadMs": 0.6000000238418579
           },
           {
-            "position": 8,
-            "elapsedMs": 3.199999988079071,
-            "phone1ComputeMs": 1.199999988079071,
-            "phone2ComputeMs": 1.2999999821186066,
-            "roundTripMs": 2,
-            "exchangeOverheadMs": 0.7000000178813934
-          },
-          {
-            "position": 9,
-            "elapsedMs": 8.599999994039536,
-            "phone1ComputeMs": 1.4000000059604645,
-            "phone2ComputeMs": 6.0999999940395355,
-            "roundTripMs": 7.199999988079071,
-            "exchangeOverheadMs": 1.0999999940395355
-          },
-          {
-            "position": 10,
-            "elapsedMs": 3.4000000059604645,
-            "phone1ComputeMs": 1.300000011920929,
-            "phone2ComputeMs": 1.199999988079071,
-            "roundTripMs": 2.0999999940395355,
-            "exchangeOverheadMs": 0.9000000059604645
-          },
-          {
-            "position": 11,
-            "elapsedMs": 3.199999988079071,
-            "phone1ComputeMs": 1.199999988079071,
-            "phone2ComputeMs": 1.300000011920929,
-            "roundTripMs": 2,
-            "exchangeOverheadMs": 0.699999988079071
-          }
-        ],
-        "kv": {
-          "role": "phone1",
-          "backend": "wasm-simd",
-          "position": 12,
-          "layerIds": [
-            0,
-            1,
-            2
-          ],
-          "layerEvaluations": 36,
-          "kvBytes": 4718592,
-          "wasmMemoryBytes": 22609920,
-          "cacheLengths": [
-            12,
-            12,
-            12
-          ],
-          "failed": false,
-          "disposed": false
-        },
-        "generatedBytesPerSecond": 170.94017100548393,
-        "note": "roundTripMs includes remote compute; exchangeOverheadMs includes queues/serialization/scheduling and is NOT one-way network latency"
-      },
-      {
-        "scope": "real DataChannel generation on this pair; device classification requires operator evidence",
-        "totalMs": 69.19999998807907,
-        "prefillToFirstByteMs": 17.899999976158142,
-        "timings": [
-          {
-            "position": 0,
-            "elapsedMs": 3.5999999940395355,
-            "phone1ComputeMs": 1.199999988079071,
-            "phone2ComputeMs": 1.2999999821186066,
-            "roundTripMs": 1.800000011920929,
-            "exchangeOverheadMs": 0.5000000298023224
-          },
-          {
-            "position": 1,
-            "elapsedMs": 3.9000000059604645,
-            "phone1ComputeMs": 1.5999999940395355,
-            "phone2ComputeMs": 1.300000011920929,
-            "roundTripMs": 2.2000000178813934,
-            "exchangeOverheadMs": 0.9000000059604645
-          },
-          {
-            "position": 2,
-            "elapsedMs": 3,
-            "phone1ComputeMs": 1.199999988079071,
-            "phone2ComputeMs": 1.2999999821186066,
-            "roundTripMs": 1.800000011920929,
-            "exchangeOverheadMs": 0.5000000298023224
-          },
-          {
-            "position": 3,
-            "elapsedMs": 3.0999999940395355,
-            "phone1ComputeMs": 1.0999999940395355,
-            "phone2ComputeMs": 1.2999999821186066,
-            "roundTripMs": 2,
-            "exchangeOverheadMs": 0.7000000178813934
-          },
-          {
             "position": 4,
-            "elapsedMs": 4.299999982118607,
-            "phone1ComputeMs": 1.0999999940395355,
-            "phone2ComputeMs": 2.5,
-            "roundTripMs": 3.0999999940395355,
+            "elapsedMs": 2.899999976158142,
+            "phone1ComputeMs": 1.199999988079071,
+            "phone2ComputeMs": 1.0999999940395355,
+            "roundTripMs": 1.699999988079071,
             "exchangeOverheadMs": 0.5999999940395355
           },
           {
             "position": 5,
-            "elapsedMs": 3.2000000178813934,
+            "elapsedMs": 2.9000000059604645,
             "phone1ComputeMs": 1.2000000178813934,
-            "phone2ComputeMs": 1.2999999821186066,
-            "roundTripMs": 2,
-            "exchangeOverheadMs": 0.7000000178813934
+            "phone2ComputeMs": 1.2000000178813934,
+            "roundTripMs": 1.699999988079071,
+            "exchangeOverheadMs": 0.4999999701976776
           },
           {
             "position": 6,
-            "elapsedMs": 4.4000000059604645,
-            "phone1ComputeMs": 1.7999999821186066,
-            "phone2ComputeMs": 1.5999999940395355,
-            "roundTripMs": 2.600000023841858,
-            "exchangeOverheadMs": 1.0000000298023224
+            "elapsedMs": 3,
+            "phone1ComputeMs": 1.2000000178813934,
+            "phone2ComputeMs": 1.2000000178813934,
+            "roundTripMs": 1.7999999821186066,
+            "exchangeOverheadMs": 0.5999999642372131
           },
           {
             "position": 7,
-            "elapsedMs": 3.399999976158142,
-            "phone1ComputeMs": 1.199999988079071,
-            "phone2ComputeMs": 1.4000000059604645,
-            "roundTripMs": 2.0999999940395355,
-            "exchangeOverheadMs": 0.699999988079071
+            "elapsedMs": 3.0999999940395355,
+            "phone1ComputeMs": 1.300000011920929,
+            "phone2ComputeMs": 1.300000011920929,
+            "roundTripMs": 1.7999999821186066,
+            "exchangeOverheadMs": 0.4999999701976776
           },
           {
             "position": 8,
-            "elapsedMs": 4.600000023841858,
+            "elapsedMs": 2.9000000059604645,
             "phone1ComputeMs": 1.2000000178813934,
-            "phone2ComputeMs": 2.5,
-            "roundTripMs": 3.4000000059604645,
-            "exchangeOverheadMs": 0.9000000059604645
+            "phone2ComputeMs": 1.2000000178813934,
+            "roundTripMs": 1.699999988079071,
+            "exchangeOverheadMs": 0.4999999701976776
           },
           {
             "position": 9,
-            "elapsedMs": 5.299999982118607,
-            "phone1ComputeMs": 1.5999999940395355,
-            "phone2ComputeMs": 2.600000023841858,
-            "roundTripMs": 3.699999988079071,
-            "exchangeOverheadMs": 1.0999999642372131
+            "elapsedMs": 3,
+            "phone1ComputeMs": 1.300000011920929,
+            "phone2ComputeMs": 1.2000000178813934,
+            "roundTripMs": 1.699999988079071,
+            "exchangeOverheadMs": 0.4999999701976776
           },
           {
             "position": 10,
-            "elapsedMs": 20.900000005960464,
-            "phone1ComputeMs": 2,
-            "phone2ComputeMs": 16.600000023841858,
-            "roundTripMs": 18.80000001192093,
-            "exchangeOverheadMs": 2.199999988079071
+            "elapsedMs": 2.800000011920929,
+            "phone1ComputeMs": 1.0999999940395355,
+            "phone2ComputeMs": 1.199999988079071,
+            "roundTripMs": 1.7000000178813934,
+            "exchangeOverheadMs": 0.5000000298023224
           },
           {
             "position": 11,
-            "elapsedMs": 9.5,
-            "phone1ComputeMs": 5.300000011920929,
-            "phone2ComputeMs": 2.0999999940395355,
-            "roundTripMs": 4.0999999940395355,
-            "exchangeOverheadMs": 2
+            "elapsedMs": 3,
+            "phone1ComputeMs": 1.199999988079071,
+            "phone2ComputeMs": 1.199999988079071,
+            "roundTripMs": 1.800000011920929,
+            "exchangeOverheadMs": 0.6000000238418579
           }
         ],
         "kv": {
@@ -554,109 +179,109 @@
           "failed": false,
           "disposed": false
         },
-        "generatedBytesPerSecond": 115.60693643610031,
+        "generatedBytesPerSecond": 219.17808219178082,
         "note": "roundTripMs includes remote compute; exchangeOverheadMs includes queues/serialization/scheduling and is NOT one-way network latency"
       },
       {
         "scope": "real DataChannel generation on this pair; device classification requires operator evidence",
-        "totalMs": 73.60000002384186,
-        "prefillToFirstByteMs": 33.60000002384186,
+        "totalMs": 36.70000001788139,
+        "prefillToFirstByteMs": 15,
         "timings": [
           {
             "position": 0,
-            "elapsedMs": 6.4000000059604645,
-            "phone1ComputeMs": 2.0999999940395355,
-            "phone2ComputeMs": 1.899999976158142,
-            "roundTripMs": 3.5999999940395355,
-            "exchangeOverheadMs": 1.7000000178813934
+            "elapsedMs": 3.5,
+            "phone1ComputeMs": 1.199999988079071,
+            "phone2ComputeMs": 1.300000011920929,
+            "roundTripMs": 1.9000000059604645,
+            "exchangeOverheadMs": 0.5999999940395355
           },
           {
             "position": 1,
-            "elapsedMs": 4.4000000059604645,
-            "phone1ComputeMs": 1.5999999940395355,
-            "phone2ComputeMs": 1.7000000178813934,
-            "roundTripMs": 2.800000011920929,
-            "exchangeOverheadMs": 1.0999999940395355
+            "elapsedMs": 3.0999999940395355,
+            "phone1ComputeMs": 1.0999999940395355,
+            "phone2ComputeMs": 1.300000011920929,
+            "roundTripMs": 2,
+            "exchangeOverheadMs": 0.699999988079071
           },
           {
             "position": 2,
-            "elapsedMs": 5.0999999940395355,
-            "phone1ComputeMs": 1.5999999940395355,
-            "phone2ComputeMs": 1.7999999821186066,
-            "roundTripMs": 3.4000000059604645,
-            "exchangeOverheadMs": 1.600000023841858
+            "elapsedMs": 2.9000000059604645,
+            "phone1ComputeMs": 1.2000000178813934,
+            "phone2ComputeMs": 1.2000000178813934,
+            "roundTripMs": 1.699999988079071,
+            "exchangeOverheadMs": 0.4999999701976776
           },
           {
             "position": 3,
-            "elapsedMs": 11.400000005960464,
-            "phone1ComputeMs": 6,
-            "phone2ComputeMs": 2,
-            "roundTripMs": 5.4000000059604645,
-            "exchangeOverheadMs": 3.4000000059604645
+            "elapsedMs": 2.7000000178813934,
+            "phone1ComputeMs": 1.0999999940395355,
+            "phone2ComputeMs": 1.199999988079071,
+            "roundTripMs": 1.600000023841858,
+            "exchangeOverheadMs": 0.40000003576278687
           },
           {
             "position": 4,
-            "elapsedMs": 6.300000011920929,
-            "phone1ComputeMs": 2.4000000059604645,
-            "phone2ComputeMs": 2.0999999940395355,
-            "roundTripMs": 3.9000000059604645,
-            "exchangeOverheadMs": 1.800000011920929
+            "elapsedMs": 2.7999999821186066,
+            "phone1ComputeMs": 1.0999999940395355,
+            "phone2ComputeMs": 1.2000000178813934,
+            "roundTripMs": 1.699999988079071,
+            "exchangeOverheadMs": 0.4999999701976776
           },
           {
             "position": 5,
-            "elapsedMs": 7.299999982118607,
-            "phone1ComputeMs": 2.5,
-            "phone2ComputeMs": 1.9000000059604645,
-            "roundTripMs": 4.799999982118607,
-            "exchangeOverheadMs": 2.899999976158142
+            "elapsedMs": 3.4000000059604645,
+            "phone1ComputeMs": 1.2000000178813934,
+            "phone2ComputeMs": 1.300000011920929,
+            "roundTripMs": 2.199999988079071,
+            "exchangeOverheadMs": 0.8999999761581421
           },
           {
             "position": 6,
-            "elapsedMs": 5.5999999940395355,
-            "phone1ComputeMs": 2.300000011920929,
-            "phone2ComputeMs": 2.300000011920929,
-            "roundTripMs": 3.2999999821186066,
-            "exchangeOverheadMs": 0.9999999701976776
+            "elapsedMs": 2.9000000059604645,
+            "phone1ComputeMs": 1.0999999940395355,
+            "phone2ComputeMs": 1.199999988079071,
+            "roundTripMs": 1.7000000178813934,
+            "exchangeOverheadMs": 0.5000000298023224
           },
           {
             "position": 7,
-            "elapsedMs": 4.5,
-            "phone1ComputeMs": 1.2000000178813934,
-            "phone2ComputeMs": 2.2999999821186066,
-            "roundTripMs": 3.2999999821186066,
-            "exchangeOverheadMs": 1
+            "elapsedMs": 3,
+            "phone1ComputeMs": 1.0999999940395355,
+            "phone2ComputeMs": 1.199999988079071,
+            "roundTripMs": 1.9000000059604645,
+            "exchangeOverheadMs": 0.7000000178813934
           },
           {
             "position": 8,
-            "elapsedMs": 6.700000017881393,
-            "phone1ComputeMs": 2.899999976158142,
-            "phone2ComputeMs": 2.300000011920929,
-            "roundTripMs": 3.7000000178813934,
-            "exchangeOverheadMs": 1.4000000059604645
+            "elapsedMs": 2.9000000059604645,
+            "phone1ComputeMs": 1.199999988079071,
+            "phone2ComputeMs": 1.199999988079071,
+            "roundTripMs": 1.5999999940395355,
+            "exchangeOverheadMs": 0.4000000059604645
           },
           {
             "position": 9,
-            "elapsedMs": 5.4000000059604645,
-            "phone1ComputeMs": 2.300000011920929,
-            "phone2ComputeMs": 1.800000011920929,
-            "roundTripMs": 3,
-            "exchangeOverheadMs": 1.199999988079071
+            "elapsedMs": 2.7999999821186066,
+            "phone1ComputeMs": 1.0999999940395355,
+            "phone2ComputeMs": 1.2000000178813934,
+            "roundTripMs": 1.699999988079071,
+            "exchangeOverheadMs": 0.4999999701976776
           },
           {
             "position": 10,
-            "elapsedMs": 4.699999988079071,
-            "phone1ComputeMs": 1.5999999940395355,
-            "phone2ComputeMs": 2.199999988079071,
-            "roundTripMs": 3.0999999940395355,
-            "exchangeOverheadMs": 0.9000000059604645
+            "elapsedMs": 3,
+            "phone1ComputeMs": 1.2000000178813934,
+            "phone2ComputeMs": 1.2000000178813934,
+            "roundTripMs": 1.7999999821186066,
+            "exchangeOverheadMs": 0.5999999642372131
           },
           {
             "position": 11,
-            "elapsedMs": 5.800000011920929,
-            "phone1ComputeMs": 2.300000011920929,
-            "phone2ComputeMs": 2,
-            "roundTripMs": 3.5,
-            "exchangeOverheadMs": 1.5
+            "elapsedMs": 3.7000000178813934,
+            "phone1ComputeMs": 1.2000000178813934,
+            "phone2ComputeMs": 1.0999999940395355,
+            "roundTripMs": 2.5,
+            "exchangeOverheadMs": 1.4000000059604645
           }
         ],
         "kv": {
@@ -679,7 +304,382 @@
           "failed": false,
           "disposed": false
         },
-        "generatedBytesPerSecond": 108.69565213870236,
+        "generatedBytesPerSecond": 217.98365111994954,
+        "note": "roundTripMs includes remote compute; exchangeOverheadMs includes queues/serialization/scheduling and is NOT one-way network latency"
+      },
+      {
+        "scope": "real DataChannel generation on this pair; device classification requires operator evidence",
+        "totalMs": 35.29999998211861,
+        "prefillToFirstByteMs": 15,
+        "timings": [
+          {
+            "position": 0,
+            "elapsedMs": 3.399999976158142,
+            "phone1ComputeMs": 1.0999999940395355,
+            "phone2ComputeMs": 1.199999988079071,
+            "roundTripMs": 1.699999988079071,
+            "exchangeOverheadMs": 0.5
+          },
+          {
+            "position": 1,
+            "elapsedMs": 2.9000000059604645,
+            "phone1ComputeMs": 1.2000000178813934,
+            "phone2ComputeMs": 1.2000000178813934,
+            "roundTripMs": 1.699999988079071,
+            "exchangeOverheadMs": 0.4999999701976776
+          },
+          {
+            "position": 2,
+            "elapsedMs": 2.800000011920929,
+            "phone1ComputeMs": 1.0999999940395355,
+            "phone2ComputeMs": 1.199999988079071,
+            "roundTripMs": 1.7000000178813934,
+            "exchangeOverheadMs": 0.5000000298023224
+          },
+          {
+            "position": 3,
+            "elapsedMs": 2.7999999821186066,
+            "phone1ComputeMs": 1.0999999940395355,
+            "phone2ComputeMs": 1.2000000178813934,
+            "roundTripMs": 1.699999988079071,
+            "exchangeOverheadMs": 0.4999999701976776
+          },
+          {
+            "position": 4,
+            "elapsedMs": 3.100000023841858,
+            "phone1ComputeMs": 1,
+            "phone2ComputeMs": 1.2000000178813934,
+            "roundTripMs": 2.100000023841858,
+            "exchangeOverheadMs": 0.9000000059604645
+          },
+          {
+            "position": 5,
+            "elapsedMs": 2.899999976158142,
+            "phone1ComputeMs": 1.199999988079071,
+            "phone2ComputeMs": 1.199999988079071,
+            "roundTripMs": 1.699999988079071,
+            "exchangeOverheadMs": 0.5
+          },
+          {
+            "position": 6,
+            "elapsedMs": 3,
+            "phone1ComputeMs": 1.300000011920929,
+            "phone2ComputeMs": 1.199999988079071,
+            "roundTripMs": 1.699999988079071,
+            "exchangeOverheadMs": 0.5
+          },
+          {
+            "position": 7,
+            "elapsedMs": 2.9000000059604645,
+            "phone1ComputeMs": 1.2000000178813934,
+            "phone2ComputeMs": 1.2000000178813934,
+            "roundTripMs": 1.699999988079071,
+            "exchangeOverheadMs": 0.4999999701976776
+          },
+          {
+            "position": 8,
+            "elapsedMs": 2.9000000059604645,
+            "phone1ComputeMs": 1.0999999940395355,
+            "phone2ComputeMs": 1.2000000178813934,
+            "roundTripMs": 1.800000011920929,
+            "exchangeOverheadMs": 0.5999999940395355
+          },
+          {
+            "position": 9,
+            "elapsedMs": 3,
+            "phone1ComputeMs": 1.199999988079071,
+            "phone2ComputeMs": 1.0999999940395355,
+            "roundTripMs": 1.7000000178813934,
+            "exchangeOverheadMs": 0.6000000238418579
+          },
+          {
+            "position": 10,
+            "elapsedMs": 2.800000011920929,
+            "phone1ComputeMs": 1.0999999940395355,
+            "phone2ComputeMs": 1.2999999821186066,
+            "roundTripMs": 1.7000000178813934,
+            "exchangeOverheadMs": 0.40000003576278687
+          },
+          {
+            "position": 11,
+            "elapsedMs": 2.7999999821186066,
+            "phone1ComputeMs": 1.0999999940395355,
+            "phone2ComputeMs": 1.2000000178813934,
+            "roundTripMs": 1.699999988079071,
+            "exchangeOverheadMs": 0.4999999701976776
+          }
+        ],
+        "kv": {
+          "role": "phone1",
+          "backend": "wasm-simd",
+          "position": 12,
+          "layerIds": [
+            0,
+            1,
+            2
+          ],
+          "layerEvaluations": 36,
+          "kvBytes": 4718592,
+          "wasmMemoryBytes": 22609920,
+          "cacheLengths": [
+            12,
+            12,
+            12
+          ],
+          "failed": false,
+          "disposed": false
+        },
+        "generatedBytesPerSecond": 226.628895298936,
+        "note": "roundTripMs includes remote compute; exchangeOverheadMs includes queues/serialization/scheduling and is NOT one-way network latency"
+      },
+      {
+        "scope": "real DataChannel generation on this pair; device classification requires operator evidence",
+        "totalMs": 48,
+        "prefillToFirstByteMs": 27.30000001192093,
+        "timings": [
+          {
+            "position": 0,
+            "elapsedMs": 4.300000011920929,
+            "phone1ComputeMs": 1.2000000178813934,
+            "phone2ComputeMs": 1.199999988079071,
+            "roundTripMs": 2.5999999940395355,
+            "exchangeOverheadMs": 1.4000000059604645
+          },
+          {
+            "position": 1,
+            "elapsedMs": 2.9000000059604645,
+            "phone1ComputeMs": 1.0999999940395355,
+            "phone2ComputeMs": 1.199999988079071,
+            "roundTripMs": 1.800000011920929,
+            "exchangeOverheadMs": 0.6000000238418579
+          },
+          {
+            "position": 2,
+            "elapsedMs": 2.699999988079071,
+            "phone1ComputeMs": 1.0999999940395355,
+            "phone2ComputeMs": 1.2000000178813934,
+            "roundTripMs": 1.5999999940395355,
+            "exchangeOverheadMs": 0.3999999761581421
+          },
+          {
+            "position": 3,
+            "elapsedMs": 10.300000011920929,
+            "phone1ComputeMs": 1.0999999940395355,
+            "phone2ComputeMs": 1.199999988079071,
+            "roundTripMs": 9.200000017881393,
+            "exchangeOverheadMs": 8.000000029802322
+          },
+          {
+            "position": 4,
+            "elapsedMs": 7.0999999940395355,
+            "phone1ComputeMs": 1.0999999940395355,
+            "phone2ComputeMs": 5.299999982118607,
+            "roundTripMs": 6,
+            "exchangeOverheadMs": 0.7000000178813934
+          },
+          {
+            "position": 5,
+            "elapsedMs": 2.800000011920929,
+            "phone1ComputeMs": 1.199999988079071,
+            "phone2ComputeMs": 1.2999999821186066,
+            "roundTripMs": 1.600000023841858,
+            "exchangeOverheadMs": 0.30000004172325134
+          },
+          {
+            "position": 6,
+            "elapsedMs": 2.899999976158142,
+            "phone1ComputeMs": 1.199999988079071,
+            "phone2ComputeMs": 1.0999999940395355,
+            "roundTripMs": 1.699999988079071,
+            "exchangeOverheadMs": 0.5999999940395355
+          },
+          {
+            "position": 7,
+            "elapsedMs": 3,
+            "phone1ComputeMs": 1.2000000178813934,
+            "phone2ComputeMs": 1.2000000178813934,
+            "roundTripMs": 1.7999999821186066,
+            "exchangeOverheadMs": 0.5999999642372131
+          },
+          {
+            "position": 8,
+            "elapsedMs": 3,
+            "phone1ComputeMs": 1.100000023841858,
+            "phone2ComputeMs": 1.300000011920929,
+            "roundTripMs": 1.899999976158142,
+            "exchangeOverheadMs": 0.5999999642372131
+          },
+          {
+            "position": 9,
+            "elapsedMs": 2.7000000178813934,
+            "phone1ComputeMs": 1.100000023841858,
+            "phone2ComputeMs": 1.0999999940395355,
+            "roundTripMs": 1.5999999940395355,
+            "exchangeOverheadMs": 0.5
+          },
+          {
+            "position": 10,
+            "elapsedMs": 3,
+            "phone1ComputeMs": 1.199999988079071,
+            "phone2ComputeMs": 1.199999988079071,
+            "roundTripMs": 1.800000011920929,
+            "exchangeOverheadMs": 0.6000000238418579
+          },
+          {
+            "position": 11,
+            "elapsedMs": 3.2999999821186066,
+            "phone1ComputeMs": 1.5,
+            "phone2ComputeMs": 1.2000000178813934,
+            "roundTripMs": 1.7999999821186066,
+            "exchangeOverheadMs": 0.5999999642372131
+          }
+        ],
+        "kv": {
+          "role": "phone1",
+          "backend": "wasm-simd",
+          "position": 12,
+          "layerIds": [
+            0,
+            1,
+            2
+          ],
+          "layerEvaluations": 36,
+          "kvBytes": 4718592,
+          "wasmMemoryBytes": 22609920,
+          "cacheLengths": [
+            12,
+            12,
+            12
+          ],
+          "failed": false,
+          "disposed": false
+        },
+        "generatedBytesPerSecond": 166.66666666666666,
+        "note": "roundTripMs includes remote compute; exchangeOverheadMs includes queues/serialization/scheduling and is NOT one-way network latency"
+      },
+      {
+        "scope": "real DataChannel generation on this pair; device classification requires operator evidence",
+        "totalMs": 37.29999998211861,
+        "prefillToFirstByteMs": 14.799999982118607,
+        "timings": [
+          {
+            "position": 0,
+            "elapsedMs": 3.2999999821186066,
+            "phone1ComputeMs": 1.0999999940395355,
+            "phone2ComputeMs": 1.0999999940395355,
+            "roundTripMs": 1.5999999940395355,
+            "exchangeOverheadMs": 0.5
+          },
+          {
+            "position": 1,
+            "elapsedMs": 2.9000000059604645,
+            "phone1ComputeMs": 1.100000023841858,
+            "phone2ComputeMs": 1.2000000178813934,
+            "roundTripMs": 1.699999988079071,
+            "exchangeOverheadMs": 0.4999999701976776
+          },
+          {
+            "position": 2,
+            "elapsedMs": 2.9000000059604645,
+            "phone1ComputeMs": 1.199999988079071,
+            "phone2ComputeMs": 1.0999999940395355,
+            "roundTripMs": 1.7000000178813934,
+            "exchangeOverheadMs": 0.6000000238418579
+          },
+          {
+            "position": 3,
+            "elapsedMs": 2.9000000059604645,
+            "phone1ComputeMs": 1.199999988079071,
+            "phone2ComputeMs": 1.199999988079071,
+            "roundTripMs": 1.7000000178813934,
+            "exchangeOverheadMs": 0.5000000298023224
+          },
+          {
+            "position": 4,
+            "elapsedMs": 2.7999999821186066,
+            "phone1ComputeMs": 1.0999999940395355,
+            "phone2ComputeMs": 1.2000000178813934,
+            "roundTripMs": 1.699999988079071,
+            "exchangeOverheadMs": 0.4999999701976776
+          },
+          {
+            "position": 5,
+            "elapsedMs": 3.300000011920929,
+            "phone1ComputeMs": 1.300000011920929,
+            "phone2ComputeMs": 1.4000000059604645,
+            "roundTripMs": 2,
+            "exchangeOverheadMs": 0.5999999940395355
+          },
+          {
+            "position": 6,
+            "elapsedMs": 3.699999988079071,
+            "phone1ComputeMs": 1.5,
+            "phone2ComputeMs": 1.5,
+            "roundTripMs": 2.199999988079071,
+            "exchangeOverheadMs": 0.699999988079071
+          },
+          {
+            "position": 7,
+            "elapsedMs": 3.4000000059604645,
+            "phone1ComputeMs": 1.4000000059604645,
+            "phone2ComputeMs": 1.5,
+            "roundTripMs": 1.9000000059604645,
+            "exchangeOverheadMs": 0.4000000059604645
+          },
+          {
+            "position": 8,
+            "elapsedMs": 2.9000000059604645,
+            "phone1ComputeMs": 1.199999988079071,
+            "phone2ComputeMs": 1.199999988079071,
+            "roundTripMs": 1.7000000178813934,
+            "exchangeOverheadMs": 0.5000000298023224
+          },
+          {
+            "position": 9,
+            "elapsedMs": 3,
+            "phone1ComputeMs": 1,
+            "phone2ComputeMs": 1.199999988079071,
+            "roundTripMs": 2,
+            "exchangeOverheadMs": 0.800000011920929
+          },
+          {
+            "position": 10,
+            "elapsedMs": 3.199999988079071,
+            "phone1ComputeMs": 1.2999999821186066,
+            "phone2ComputeMs": 1.2000000178813934,
+            "roundTripMs": 1.9000000059604645,
+            "exchangeOverheadMs": 0.699999988079071
+          },
+          {
+            "position": 11,
+            "elapsedMs": 2.9000000059604645,
+            "phone1ComputeMs": 1.300000011920929,
+            "phone2ComputeMs": 1.100000023841858,
+            "roundTripMs": 1.5999999940395355,
+            "exchangeOverheadMs": 0.4999999701976776
+          }
+        ],
+        "kv": {
+          "role": "phone1",
+          "backend": "wasm-simd",
+          "position": 12,
+          "layerIds": [
+            0,
+            1,
+            2
+          ],
+          "layerEvaluations": 36,
+          "kvBytes": 4718592,
+          "wasmMemoryBytes": 22609920,
+          "cacheLengths": [
+            12,
+            12,
+            12
+          ],
+          "failed": false,
+          "disposed": false
+        },
+        "generatedBytesPerSecond": 214.4772118990657,
         "note": "roundTripMs includes remote compute; exchangeOverheadMs includes queues/serialization/scheduling and is NOT one-way network latency"
       }
     ]
@@ -703,7 +703,7 @@
     ],
     "failed": false,
     "disposed": false,
-    "loadMs": 206.90000000596046,
+    "loadMs": 205.80000001192093,
     "shardBytes": 22473216,
     "hash": "582f266866d34f17f081161ff196043ea9ceb0b1d09e0daf034ad0e0f2de22e6",
     "cached": true,

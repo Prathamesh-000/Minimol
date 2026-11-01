@@ -62,3 +62,15 @@ prevent that. Browser/network policies can prevent host-only ICE, which must fai
 clearly. Initial HTTPS delivery/dependency installation requires network access;
 after verified caching, peer inference needs only a permitted local Wi-Fi path.
 Manual QR/text signaling remains operator-mediated; there is no server directory.
+
+## M8 compatibility additions
+
+Added conservative lifecycle invalidation, Worker-error/deadline/cleanup handling,
+ICE monitoring and a drain poll fallback. Exclusive shard ownership removes one
+explicit decoder snapshot where transferable buffers work; fallback stays safe.
+Manifest snapshots are rebuilt from the validated canonical schema without an
+unconditional structuredClone dependency or untrusted toJSON hooks. Fixed WASM
+scratch views are reused; FP32 math/kernels/model/partition remain unchanged.
+Camera streams stop on retry/disconnect/background and stale permission rejections
+are ignored. Prior verified releases are archived before replacement. API presence
+and desktop synthetic lifecycle tests do not certify physical phones.

@@ -53,5 +53,15 @@ export function validateManifest(value) {
             throw new Error(`Invalid ${role} file metadata`);
     }
     // Snapshot untrusted metadata so changes during asynchronous hashing cannot alter it.
-    return structuredClone(m);
+    // Rebuild the validated contract without requiring structuredClone, executing
+    // untrusted toJSON methods, or retaining caller-owned shape/offset arrays.
+    const files = {};
+    for (const role of ['phone1', 'phone2'])
+        files[role] = {
+            name: `${role}.bin`, byte_length: ROLE_COUNTS[role] * 4,
+            parameter_count: ROLE_COUNTS[role], sha256: m.files[role].sha256,
+        };
+    return { format_version: 1, dtype: 'float32', byte_order: 'little', layout: 'row-major',
+        config_sha256: CONFIG_SHA256, parameter_count: 11040768, model_config: { ...MODEL_CONFIG },
+        tensors: expectedTensors(), files };
 }

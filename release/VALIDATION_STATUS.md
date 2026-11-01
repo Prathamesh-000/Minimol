@@ -1,5 +1,18 @@
 # Validation status
 
+## Current M8 validation
+
+Desktop-only automated results: JavaScript 76 passed; Python model 65 passed;
+HTTPS helper 3 passed; backend golden runs 21 passed; WebRTC scenarios 13 passed;
+offline/QR scenarios 12 passed directly against release/demo with the asset server
+stopped during offline reload/inference; new desktop lifecycle/resource scenarios
+13 passed; release-integrity/rollback tests 6 passed; typecheck/build/integrity passed.
+Synthetic visibility/freeze/timer/camera failures and actual desktop Worker termination
+are NOT physical screen-lock or Android/iOS evidence. Previous releases are preserved
+in release-archives/. All six physical statuses below remain NOT TESTED.
+
+## Historical M7 validation
+
 M7 automated checks actually executed (Apple M2/macOS arm64, Node 24.6.0,
 Python 3.12.5/PyTorch 2.5.1/NumPy 2.1.3, desktop Chrome 156.0.8078.74):
 

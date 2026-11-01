@@ -1,3 +1,4 @@
+import { capabilities } from './capabilities.js';
 import { ValidationLog, scenarios } from './validation.js';
 export function setupReadiness(session) {
     const log = new ValidationLog();
@@ -40,9 +41,16 @@ export function setupReadiness(session) {
             log.observe('pairedReload', 'Previous page was paired. New page requires a fresh offer/answer; old KV session is not resumed.');
     }
     catch { }
+    if (document.wasDiscarded === true)
+        log.observe('discarded', 'Browser reports a discarded page; reload the role and pair freshly.');
     render();
-    let hiddenAt = 0;
-    document.addEventListener('visibilitychange', () => { if (document.hidden) {
+    let hiddenAt = 0, lastLifecycle = 'created';
+    $('browser-capabilities').textContent = JSON.stringify(capabilities(), null, 2);
+    for (const event of ['freeze', 'resume'])
+        document.addEventListener(event, () => { lastLifecycle = event; });
+    for (const event of ['pagehide', 'pageshow'])
+        window.addEventListener(event, () => { lastLifecycle = event; });
+    document.addEventListener('visibilitychange', () => { lastLifecycle = document.hidden ? 'hidden' : 'visible'; if (document.hidden) {
         hiddenAt = Date.now();
         log.observe('screenResume', 'Page became hidden; screen lock cannot be distinguished from tab switching.');
     }
@@ -50,27 +58,45 @@ export function setupReadiness(session) {
         log.observe('screenResume', `Page visible after ${hiddenAt ? Date.now() - hiddenAt : 0} ms. Inspect live connection; retry pairing if closed.`);
     } render(); });
     window.addEventListener('pagehide', () => { try {
-        sessionStorage.setItem('minimol-paired', session()?.isReady ? 'yes' : 'no');
+        sessionStorage.setItem('minimol-paired', session()?.wasPaired ? 'yes' : 'no');
     }
     catch { } });
     let polling = false;
-    setInterval(async () => { const s = session(); if (!s)
-        return; const p = s.pairing.status; $('peer-state').textContent = p.connection; $('channel-state').textContent = p.channel; if (!s.isReady) {
-        $('participation').textContent = 'Waiting for verified peer / fresh pairing';
-        return;
-    } if (polling)
-        return; polling = true; try {
-        const stats = await s.call('stats');
-        if (session() !== s)
+    setInterval(async () => {
+        const s = session();
+        if (!s)
             return;
-        const trace = stats.trace;
-        const valid = trace.length > 0 && trace.every((t) => t.layerEvaluations === 3 && JSON.stringify(t.layerIds) === JSON.stringify(s.role === 'phone1' ? [0, 1, 2] : [3, 4, 5]));
-        $('participation').textContent = valid ? (s.role === 'phone1' ? `${trace.length} completed two-runtime exchanges` : `${trace.length} worker positions from peer activations`) : 'Handshake verified; awaiting inference';
-    }
-    catch { }
-    finally {
-        polling = false;
-    } }, 1000);
+        const p = s.pairing.status;
+        $('mobile-lifecycle').textContent = lastLifecycle;
+        $('mobile-recovery').textContent = s.resourceState.closed ? 'Session discarded — Load / retry BOTH roles and pair again' : s.lifecycle.recovery;
+        $('mobile-buffer').textContent = String(s.resourceState.dataChannelBufferedBytes);
+        $('mobile-load').textContent = s.modelInfo ? `${s.modelInfo.loadMs.toFixed(1)} ms` : 'Not measured';
+        $('mobile-prefill').textContent = s.lastMeasurement?.prefillToFirstByteMs != null ? `${s.lastMeasurement.prefillToFirstByteMs.toFixed(1)} ms` : 'Not measured';
+        const heap = performance.memory?.usedJSHeapSize;
+        const wasm = s.modelInfo?.wasmMemoryBytes;
+        $('mobile-memory').textContent = `${s.resourceState.closed ? 'Worker stopped; memory now unavailable. Last reported ' : ''}WASM linear: ${wasm == null ? 'not measured' : wasm + ' bytes'}; page JS heap: ${heap == null ? 'unavailable' : heap + ' bytes'}; not total device RAM`;
+        $('peer-state').textContent = p.connection;
+        $('channel-state').textContent = p.channel;
+        if (!s.isReady) {
+            $('participation').textContent = 'Waiting for verified peer / fresh pairing';
+            return;
+        }
+        if (polling)
+            return;
+        polling = true;
+        try {
+            const stats = await s.call('stats');
+            if (session() !== s)
+                return;
+            const trace = stats.trace;
+            const valid = trace.length > 0 && trace.every((t) => t.layerEvaluations === 3 && JSON.stringify(t.layerIds) === JSON.stringify(s.role === 'phone1' ? [0, 1, 2] : [3, 4, 5]));
+            $('participation').textContent = valid ? (s.role === 'phone1' ? `${trace.length} completed two-runtime exchanges` : `${trace.length} worker positions from peer activations`) : 'Handshake verified; awaiting inference';
+        }
+        catch { }
+        finally {
+            polling = false;
+        }
+    }, 1000);
     $('run-benchmark').onclick = async () => {
         const s = session();
         if (!s?.isReady || s.role !== 'phone1') {
@@ -108,5 +134,5 @@ export function setupReadiness(session) {
             }
         }
     };
-    return { loaded(model) { loadMs = model.loadMs; $('backend').textContent = model.backend; log.observe('modelLoad', `Verified ${model.role}; load ${model.loadMs.toFixed(2)} ms; cached=${model.cached}`); render(); } };
+    return { loaded(model) { loadMs = model.loadMs; $('backend-details').textContent = JSON.stringify({ active: model.backend, fallbackReasons: model.fallbackReasons, verifiedShardBytes: model.shardBytes, wasmLinearBytes: model.wasmMemoryBytes }, null, 2); $('backend').textContent = model.backend; log.observe('modelLoad', `Verified ${model.role}; load ${model.loadMs.toFixed(2)} ms; cached=${model.cached}`); render(); } };
 }

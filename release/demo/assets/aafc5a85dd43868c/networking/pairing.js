@@ -60,6 +60,10 @@ export class PeerPairing {
             else
                 this.acceptChannel(event.channel);
         };
+        this.pc.addEventListener('iceconnectionstatechange', () => {
+            if (['failed', 'disconnected', 'closed'].includes(this.pc.iceConnectionState))
+                this.close('ICE connection lost. Keep both pages foregrounded; Load / retry BOTH roles and exchange fresh signaling.');
+        });
         this.pc.onconnectionstatechange = () => {
             if (['failed', 'disconnected', 'closed'].includes(this.pc.connectionState))
                 this.close('Peer connection lost. Keep both phones awake and retry pairing on the same local network.');

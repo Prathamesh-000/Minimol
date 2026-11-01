@@ -7,6 +7,9 @@ class WasmLinearBackend {
     #cursor;
     #input;
     #output;
+    #inputView;
+    #outputView;
+    get wasmMemoryBytes() { return this.#kernel.memory.buffer.byteLength; }
     #capacity;
     #disposed = false;
     constructor(instance, role) {
@@ -22,6 +25,8 @@ class WasmLinearBackend {
             this.#kernel.memory.grow(pages);
         this.#input = this.allocate(1536 * 4);
         this.#output = this.allocate(1536 * 4);
+        this.#inputView = new Float32Array(this.#kernel.memory.buffer, this.#input, 1536);
+        this.#outputView = new Float32Array(this.#kernel.memory.buffer, this.#output, 1536);
     }
     allocate(bytes) {
         const pointer = (this.#cursor + 15) & ~15;
@@ -45,9 +50,9 @@ class WasmLinearBackend {
         if (!input.length || input.length > 1536 || output.length > 1536 || weights.length !== input.length * output.length || (bias && bias.length !== output.length))
             throw new Error('WASM linear shape mismatch');
         const wp = this.copyOnce(weights), bp = bias ? this.copyOnce(bias) : 0;
-        new Float32Array(this.#kernel.memory.buffer, this.#input, input.length).set(input);
+        this.#inputView.set(input);
         this.#kernel.matvec(wp, this.#input, bp, this.#output, output.length, input.length);
-        output.set(new Float32Array(this.#kernel.memory.buffer, this.#output, output.length));
+        output.set(this.#outputView.subarray(0, output.length));
     }
     dispose() {
         if (!this.#disposed) {

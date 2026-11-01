@@ -69,3 +69,13 @@ client isolation can prevent a demo. Explicit manual pairing remains the fallbac
 Downloads restart rather than resume ranges. No pure one-way latency measurement,
 complete device-memory API, automatic uncertain-session recovery or universal
 browser compatibility is claimed. QR checksums detect corruption, not human identity.
+
+## M8 reliability additions
+
+Active lifecycle invalidation, clock/liveness checks, Worker command failure bounds,
+main-thread duplicate-generation guard and timer/listener cleanup protect uncertain
+KV state. Pending manual offers remain usable during normal copy waits. Exclusive
+buffer ownership reduces one decoder copy; fixed WASM scratch views are reused.
+No-transfer fallback and canonical manifest snapshots avoid requiring structuredClone.
+Measured memory is explicitly partial. See MOBILE_COMPATIBILITY.md for the trade-offs,
+new automated scenarios and actual iOS/Android tests still NOT TESTED.

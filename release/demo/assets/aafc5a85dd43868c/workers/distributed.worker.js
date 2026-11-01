@@ -66,7 +66,7 @@ scope.onmessage = async ({ data }) => {
             manifest = loaded.manifest;
             const selected = await selectBackend(role, 'auto', wasm);
             engine = role === 'phone1' ? new Phone1Engine(shard, selected.backend) : new Phone2Engine(shard, selected.backend);
-            result = { ...engine.stats, loadMs: performance.now() - loadStarted, hash: engine.shardHash, cached: loaded.cached, cacheWarning: loaded.cacheWarning, fallbackReasons: selected.fallbackReasons };
+            result = { ...engine.stats, loadMs: performance.now() - loadStarted, shardBytes: engine.parameterCount * 4, hash: engine.shardHash, cached: loaded.cached, cacheWarning: loaded.cacheWarning, fallbackReasons: selected.fallbackReasons };
         }
         else if (command === 'attach') {
             if (!engine || runtime)

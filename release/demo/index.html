@@ -4,7 +4,7 @@
 :root{color-scheme:dark}body{max-width:1000px;padding:24px;background:#0b111a;color:#e5edf7;line-height:1.55}h1{font-size:clamp(25px,5vw,40px);letter-spacing:-1px}button{background:#c1f56a;color:#17220c;border:0;border-radius:10px;cursor:pointer;font-weight:600}button:disabled{background:#334155;color:#a8b7cc;opacity:.7;cursor:not-allowed}textarea,input,select{background:#182333;color:#edf4ff;border:1px solid #41516a;border-radius:8px;padding:12px;max-width:100%}label{display:block;margin-top:14px;font-weight:600}textarea{font:14px ui-monospace,monospace}#local,#remote{min-height:110px}#status{padding:16px;border-left:3px solid #c1f56a;background:#182333}#dashboard{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:10px;margin:24px 0}.metric{background:#182333;padding:14px;border-radius:12px}.metric small{display:block;color:#9bacc4}.metric strong{display:block;font-size:18px}#qr-canvas{background:white;width:min(100%,400px);height:auto;image-rendering:pixelated}video{max-width:100%;max-height:340px}details{background:#182333;padding:12px;border-radius:10px}#output,#bytes{background:#182333;padding:12px;min-height:24px}#metrics{font-size:12px}a{color:#c1f56a}
 </style>
 <h1>miniMol — MESH INFERENCE</h1><p>Distributed AI across two smartphones. CPU only; keep both screens awake on the same Wi-Fi or hotspot.</p>
-<p>Build: <strong id="build">9f5153c5b7effc98</strong>. Open this URL directly in Safari/Chrome; keep this same tab open while transferring text.</p><p id="link-state">Not connected</p><details><summary>Connection diagnostics</summary><pre id="connection"></pre></details>
+<p>Build: <strong id="build">aafc5a85dd43868c</strong>. Open this URL directly in Safari/Chrome; keep this same tab open while transferring text.</p><p id="link-state">Not connected</p><details><summary>Connection diagnostics</summary><pre id="connection"></pre></details>
 <section id="dashboard" aria-label="Live demo dashboard">
 <div class="metric"><small>This device computes</small><strong id="d-layers">Select a role</strong></div>
 <div class="metric"><small>Network availability</small><strong id="d-network">Checking</strong></div>
@@ -17,6 +17,12 @@
 <div class="metric"><small>Peer connection</small><strong id="peer-state">new</strong></div>
 <div class="metric"><small>DataChannel</small><strong id="channel-state">not received</strong></div>
 <div class="metric"><small>Both-phone participation</small><strong id="participation">Awaiting verified inference</strong></div></section>
+<details><summary>Mobile capabilities and resources</summary>
+<p>Feature presence does not certify iOS/Android compatibility. SIMD/scalar support is confirmed by actual backend loading.</p>
+<pre id="browser-capabilities"></pre><pre id="backend-details"></pre>
+<p>Measured model load: <span id="mobile-load">Not measured</span></p><p>Measured prefill to first byte: <span id="mobile-prefill">Not measured</span></p>
+<p>DataChannel buffered bytes: <span id="mobile-buffer">0</span></p><p>Memory: <span id="mobile-memory">Unavailable until loaded</span></p>
+<p>Last lifecycle event: <span id="mobile-lifecycle">created</span></p><p>Recovery: <span id="mobile-recovery">Keep both pages foregrounded</span></p></details>
 <p>Last error: <span id="last-error" role="alert">None recorded</span></p>
 <details><summary>Physical validation and benchmark evidence</summary>
 <label>Measurement environment <select id="device-class"><option>UNCLASSIFIED — choose before exporting</option><option>DESKTOP</option><option>PHYSICAL MOBILE — operator confirmed</option></select></label>
@@ -39,17 +45,17 @@
 <button id="answer" disabled>Create answer (Phone 2)</button><button id="apply" disabled>Apply answer (Phone 1)</button>
 <p>Phone 1 creates an offer → Phone 2 pastes it and creates an answer → Phone 1 pastes the answer. Exchange text through any manual channel; the app has no signaling service.</p>
 <details open><summary>QR pairing — no signaling server</summary>
-<button id="show-qr">Show QR for your signaling text</button><button id="qr-prev">Previous code</button><button id="qr-next">Next code</button><p id="qr-status">Create an offer or answer first. Scan every numbered code.</p><canvas id="qr-canvas" hidden></canvas>
+<button id="show-qr">Show QR for your signaling text</button><button id="qr-prev">Previous code</button><button id="qr-next">Next code</button><p id="qr-status">Phone 1: create offer, then show QR. Phone 2: tap Scan other phone first. Scan every numbered code, create answer, then show your answer QR.</p><canvas id="qr-canvas" hidden></canvas>
 <button id="scan">Scan other phone</button><button id="scan-stop">Stop camera</button><video id="camera" playsinline muted hidden></video>
 <p>Scanning fills the remote text box. Review it, then press Create answer or Apply answer. Camera denial leaves manual pairing available.</p></details>
 <label for="prompt">UTF-8 prompt</label><textarea id="prompt">Hello</textarea><label>New bytes <input id="count" type="number" min="1" max="512" value="8"></label>
 <button id="generate" disabled>Generate (Phone 1; uses both phones)</button><p id="generation-help">Generation unlocks on Phone 1 only after the direct connection and model handshake. Phone 2 runs automatically as its worker.</p>
 <button id="disconnect">Stop / disconnect</button><button id="diagnostics">Copy connection diagnostics</button><pre id="output"></pre><pre id="bytes"></pre><details><summary>Detailed runtime evidence</summary><pre id="metrics"></pre></details>
 <script type="module">
-import { DemoSession } from './assets/9f5153c5b7effc98/demo/session.js';
-import { setupReadiness } from './assets/9f5153c5b7effc98/demo/readiness.js';
+import { DemoSession } from './assets/aafc5a85dd43868c/demo/session.js';
+import { setupReadiness } from './assets/aafc5a85dd43868c/demo/readiness.js';
 const readiness=setupReadiness(()=>window.session);
-import { setupDashboard } from './assets/9f5153c5b7effc98/demo/dashboard.js';
+import { setupDashboard } from './assets/aafc5a85dd43868c/demo/dashboard.js';
 const dashboard=setupDashboard(()=>window.session);
 const $=id=>document.getElementById(id);let session,output=[],diagnosticSnapshot;
 const status=text=>$('status').textContent=text;
@@ -60,7 +66,7 @@ window.createSession=async(role,debug=false,timeout=180000)=>{
  session?.close();dashboard.loading();const current=new DemoSession(role,debug,timeout);session=current;window.session=current;
  $('lan-ip').disabled=false;$('generate').disabled=true;$('bytes').textContent='';$('output').textContent='';$('metrics').textContent='';output=[];
  current.onLoading=message=>{if(session===current){status(message);$('d-shard').textContent=message}};
- current.onClose=reason=>{if(session!==current)return;status(reason+' Use Load selected shard / retry on BOTH devices, then exchange new signaling text.');for(const id of ['offer','answer','apply','generate'])$(id).disabled=true;$('generation-help').textContent='Disconnected — generation requires both phones. Retry pairing.'};
+ current.onClose=reason=>{if(session!==current)return;dashboard.closed();$('last-error').textContent=reason;status(reason+' Use Load selected shard / retry on BOTH devices, then exchange new signaling text.');for(const id of ['offer','answer','apply','generate'])$(id).disabled=true;$('generation-help').textContent='Disconnected — generation requires both phones. Retry pairing.'};
  current.onByte=byte=>{if(session!==current)return;output.push(byte);dashboard.byte();$('output').textContent=new TextDecoder().decode(Uint8Array.from(output));$('bytes').textContent='Generated byte IDs: '+JSON.stringify(output)};
  const model=await current.modelReady;if(session!==current)return model;status(`${role}: shard verified; ${model.backend}. Ready to exchange signaling text.`);dashboard.loaded(role,model);readiness.loaded(model);
  current.ready().then(()=>{if(session!==current)return;status('CONNECTED — model handshake verified; direct host path confirmed');$('link-state').textContent='ICE connected · Channel open · Model handshake verified';$('generate').disabled=role!=='phone1';$('generation-help').textContent=role==='phone1'?'Ready. Tap Generate here: both phones will execute their assigned layers.':'Worker ready. Tap Generate on Phone 1; this phone automatically executes layers 3–5.'}).catch(()=>{});

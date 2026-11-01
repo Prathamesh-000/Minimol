@@ -15,3 +15,8 @@ test('QR rejects malformed, expired, future, wrong-role, mixed and corrupted exc
  const corrupt=frames.map(f=>{const p=JSON.parse(f);p.data=p.data.replace('aaaa','bbbb');return JSON.stringify(p)});
  const b=new QrAssembler();await assert.rejects(async()=>{for(const f of corrupt)await b.add(f,'offer')});
 });
+test('QR export explains missing or incomplete signaling instead of exposing JSON parse errors',async()=>{
+ await assert.rejects(makeQrFrames('  '),/Create an offer or answer/);
+ await assert.rejects(makeQrFrames('{'),/Incomplete signaling text/);
+ await assert.rejects(makeQrFrames('null'),/Invalid signaling type/);
+});
